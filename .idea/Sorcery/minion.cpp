@@ -1,15 +1,7 @@
-//
-//  minion.cpp
-//  Sorcery
-//
-//  Created by 刘然 on 2017-03-27.
-//  Copyright © 2017 刘然. All rights reserved.
-//
-
 #include "minion.hpp"
 #include "player.hpp"
 
-minion::minion() : name{""}, cost{0}, defence{0}, attack{0}, action{0}, bfposition{-1}, handposition{-1}{}
+minion::minion() : name{""}, cost{0}, defence{0}, attack{0}, action{0}{}
 
 minion::~minion(){}
 
@@ -30,38 +22,26 @@ void minion::changedefence(string how, int much){
 }
 
 void minion::hit(minion &other){
-    if((bfposition != -1) && (other.getbfposiotion() != -1)){
-        other.being_hit(attack);
-        changedefence("minus", other.attack);
-    } else {
-        cout<<"Minion is not in the battlefield"<<endl;
-    }
+    other.being_hit(attack);
+    changedefence("minus", other.attack);
 }
 
+void minion::hit(player &other){
+    if (action = 1){
+        other.changehealth("-", attack);
+        action -= 1;
+    } else{
+        cout << "No action!" << endl;
+    }
 void minion::being_hit(int otherattack){
-    if(bfposition != -1){
-        changedefence("minus", otherattack);
-    } else {
-        cout<<"This attacked minion is not in the battlefield"<<endl;
-    }
+    changedefence("minus", otherattack);
 }
 
-bool minion::isdead(){
-    return defence <= 0;;
+
+int getdefence(){
+    return defence;
 }
 
-int minion::getbfposiotion(){
-    return bfposition;
-}
-
-void minion::setbfposition(int newposition){
-    bfposition = newposition;
-}
-
-int minion::gethandposiotion(){
-    return handposition;
-}
-
-void minion::sethandposition(int newposition){
-    handposition = newposition;
+int getattack(){
+    return attack;
 }

@@ -1,10 +1,3 @@
-//
-//  minion.hpp
-//  Sorcery
-//
-//  Created by 刘然 on 2017-03-27.
-//  Copyright © 2017 刘然. All rights reserved.
-//
 
 #ifndef minion_hpp
 #define minion_hpp
@@ -18,8 +11,6 @@ class minion: public card{
     int defence;
     int attack;
     int cost;
-    int bfposition;
-    int handposition;
     string name;
 public:
     minion();
@@ -29,12 +20,8 @@ public:
     virtual void hit(minion &other);
     virtual void hit(player &other);
     virtual void being_hit (int otherattack);
-    virtual bool isdead();
-    virtual int getbfposiotion();
-    virtual void setbfposition(int newposition);
-    virtual int gethandposiotion();
-    virtual void sethandposition(int newposition);
+    virtual int getdefence();
+    virtual int getattack();
 };
 
-#endif /* minion_hpp */
-
+#endif

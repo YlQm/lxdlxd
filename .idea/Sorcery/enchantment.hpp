@@ -1,11 +1,3 @@
-//
-//  enchantment.hpp
-//  Sorcery
-//
-//  Created by 刘然 on 2017-03-27.
-//  Copyright © 2017 刘然. All rights reserved.
-//
-
 #ifndef enchantment_hpp
 #define enchantment_hpp
 
@@ -16,12 +8,11 @@ using namespace std;
 class enchantment: public card{
     int cost;
     string name;
+    card *target;
 public:
-    enchantment();
+    enchantment(card *card);
     virtual ~enchantment();
-    virtual void changehealth(string how, int much);
-    virtual void changeattack(string how, int much);
     virtual void useability();
 };
 
-#endif /* enchantment_hpp */
+#endif
