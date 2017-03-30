@@ -16,9 +16,12 @@ using namespace std;
 class card {
     int cost;
     string name;
+    int handposition;
 public:
     card();
     virtual ~card();
+    virtual gethandposition();
+    virtual sethandposition(int newposition);
 };
 
 #endif /* card_hpp */

@@ -10,16 +10,20 @@
 #define _PLAYER_H_
 #include <string>
 #include "card.hpp"
-#include "hand.hpp"
-#include "Battlefield.hpp"
-#include "Grave.hpp"
+#include "minion.hpp"
+#include <vector>
 
 using namespace std;
 
 class player{
-    hand *h;
-    battlefield *bf;
-    grave *g;
+    vector<card*> hand;
+    int handamount;
+    vector<minion*> battlefield;
+    int bfamount;
+    vector<minion*> grave;
+    int graveamount;
+    vector<card*> deck;
+    int deckamount;
     int magic;
     string name;
     int health;
@@ -30,8 +34,15 @@ public:
     string getname();
     int getmagic();
     int gethealth();
+    int gethandzmount();
+    int getbfamount();
+    int getgraveamount();
+    int getdeckamount();
     void changehealth(string how, int much);
     void changemagic(string how, int much);
+    void draw();
+    void destroy(minion &other);
+    void summon(minion &other);
 };
 
 

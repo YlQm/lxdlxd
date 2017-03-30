@@ -8,9 +8,14 @@
 
 #include "card.hpp"
 
-card::card() : name{""}, cost{0}{}
+card::card() : name{""}, cost{0}, handposition{-1}{}
 
 card::~card(){}
 
+int card::gethandposition(){
+    return handposition;
+}
 
-
+void card::sethandposition(int newposition){
+    handposition = newposition;
+}

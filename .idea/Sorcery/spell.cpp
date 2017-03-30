@@ -8,7 +8,7 @@
 
 #include "spell.hpp"
 
-spell::spell() : name{""}, cost{0}, {}
+spell::spell() : name{""}, cost{0}{}
 
 spell::~spell(){}
 
