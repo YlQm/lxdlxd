@@ -19,9 +19,6 @@ class spell: public card{
 public:
     spell();
     virtual ~spell();
-    virtual void changehealth(string how, int much);
-    virtual void changeattack(string how, int much);
-    virtual void useability();
 };
 
 #endif /* spell_hpp */

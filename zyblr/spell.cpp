@@ -12,8 +12,4 @@ spell::spell() : name{""}, cost{0}{}
 
 spell::~spell(){}
 
-void spell::changeattack(string how, int much){}
 
-void spell::changehealth(string how, int much){}
-
-void spell::useability(){}

@@ -11,20 +11,17 @@
 
 #include <iostream>
 #include <string>
-#include "model.hpp"
 using namespace std;
 
-class card: public model {
+class card {
     int cost;
     string name;
+    int handposition;
 public:
     card();
     virtual ~card();
-    
-    //pure virtual since all cards are specific cards: minion spell enchantment ritual
-    virtual void changehealth(string how, int much) =  0;
-    virtual void changeattack(string how, int much) = 0;
-    virtual void useability() = 0;
+    virtual gethandposition();
+    virtual sethandposition(int newposition);
 };
 
 #endif /* card_hpp */
