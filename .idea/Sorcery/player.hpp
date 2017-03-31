@@ -1,31 +1,49 @@
+//
+//  player.hpp
+//  Sorcery
+//
+//  Created by 刘然 on 2017-03-27.
+//  Copyright © 2017 刘然. All rights reserved.
+//
+
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 #include <string>
-#include "model.hpp"
-#include "hand.hpp"
-#include "Battlefield.hpp"
-#include "Grave.hpp"
+#include "card.hpp"
+#include "minion.hpp"
+#include <vector>
 
 using namespace std;
 
-class player: public model
-{
-    hand *h;
-    Battlefield *bf;
-    Grave *g;
+class player{
+    vector<card*> hand;
+    int handamount;
+    vector<minion*> battlefield;
+    int bfamount;
+    vector<minion*> grave;
+    int graveamount;
+    vector<card*> deck;
+    int deckamount;
     int magic;
     string name;
     int health;
 public:
-    player();
+    player(string name);
     ~player();
     void  setname(string inputname);
     string getname();
     int getmagic();
     int gethealth();
+    int gethandzmount();
+    int getbfamount();
+    int getgraveamount();
+    int getdeckamount();
     void changehealth(string how, int much);
     void changemagic(string how, int much);
-    void being_hit(minion &m);
+    void draw();
+    void destroy(minion &other);
+    void summon(minion &other);
+    void add_magic();
 };
 
 

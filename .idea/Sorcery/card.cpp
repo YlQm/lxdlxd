@@ -7,8 +7,9 @@
 //
 
 #include "card.hpp"
+#include "player.hpp"
 
-card::card() : name{""}, cost{0}, handposition{-1}{}
+card::card(string name, int cost, string description, player *p1, player *p2) : name{name}, cost{cost}, handposition{-1}, p1{p1}, p2{p2}, description(description){}
 
 card::~card(){}
 
@@ -18,4 +19,8 @@ int card::gethandposition(){
 
 void card::sethandposition(int newposition){
     handposition = newposition;
+}
+
+string card::getdescription(){
+    return description;
 }

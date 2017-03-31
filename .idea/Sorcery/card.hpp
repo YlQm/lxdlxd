@@ -13,15 +13,21 @@
 #include <string>
 using namespace std;
 
+class player;
 class card {
+protected:
+    player *p1;
+    player *p2;
     int cost;
     string name;
     int handposition;
+    string description;
 public:
-    card();
+    card(string name, int cost, string description, player *p1, player *p2);
     virtual ~card();
-    virtual gethandposition();
-    virtual sethandposition(int newposition);
+    virtual int gethandposition();
+    virtual void sethandposition(int newposition);
+    string getdescription();
 };
 
 #endif /* card_hpp */

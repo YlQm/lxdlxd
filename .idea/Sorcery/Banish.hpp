@@ -15,14 +15,10 @@
 #include "ritual.hpp"
 using namespace std;
 
-class Banish{
-    int cost;
-    string name;
-    string description;
+class Banish: public spell{
 public:
-    Banish();
+    Banish(string name, int cost, string description, player *p1, player *p2);
     ~Banish();
-    string getdescription();
     
     //real work
     void banish(minion &other);

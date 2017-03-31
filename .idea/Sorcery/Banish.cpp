@@ -8,12 +8,9 @@
 
 #include "Banish.hpp"
 
-Banish::Banish() : name{"Banish"}, cost{2}, description{"Destroy target minion or ritual"}{}
-Banish::~Banish(){}
+Banish::Banish(string name, int cost, string description, player *p1, player *p2):spell(name, cost, description,p1,p2){}
 
-string Banish::getdescription(){
-    return description;
-}
+Banish::~Banish(){}
 
 void Banish::banish(minion &other){}
 

@@ -14,10 +14,8 @@
 using namespace std;
 
 class spell: public card{
-    int cost;
-    string name;
 public:
-    spell();
+    spell(string name, int cost, string description, player *p1, player *p2);
     virtual ~spell();
 };
 
