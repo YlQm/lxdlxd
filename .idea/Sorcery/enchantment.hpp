@@ -18,7 +18,7 @@ class minion;
 class enchantment: public card{
     minion *target;
 public:
-    enchantment(string name, int cost, string description, player *p1, player *p2);
+    enchantment(string name, int cost, string description, player *p1, player *p2,string type);
     virtual ~enchantment();
 };
 

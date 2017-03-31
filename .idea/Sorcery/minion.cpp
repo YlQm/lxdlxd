@@ -9,7 +9,7 @@
 #include "minion.hpp"
 #include "player.hpp"
 
-minion::minion(string name, int cost, string description, player *p1, player *p2, int action, int defence, int attack):card{name, cost, description, p1, p2}, bfposition{-1}, action{action}, defence(defence), attack(attack){}
+minion::minion(string name, int cost, string description, player *p1, player *p2,string type, int action, int defence, int attack):card{name, cost, description, p1, p2, type}, bfposition{-1}, action{action}, defence(defence), attack(attack){}
 
 minion::~minion(){}
 

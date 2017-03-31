@@ -18,7 +18,7 @@ class minion: public card{
     int attack;
     int bfposition;
 public:
-    minion(string name, int cost, string description, player *p1, player *p2, int action, int defence, int attack);
+    minion(string name, int cost, string description, player *p1, player *p2, string type, int action, int defence, int attack);
     virtual ~minion();
     virtual void changedefence(string how, int much);
     virtual void changeattack(string how, int much);

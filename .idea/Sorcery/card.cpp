@@ -9,7 +9,7 @@
 #include "card.hpp"
 #include "player.hpp"
 
-card::card(string name, int cost, string description, player *p1, player *p2) : name{name}, cost{cost}, handposition{-1}, p1{p1}, p2{p2}, description(description){}
+card::card(string name, int cost, string description, player *p1, player *p2, string type) : name{name}, cost{cost}, handposition{-1}, p1{p1}, p2{p2}, description(description), type(type){}
 
 card::~card(){}
 

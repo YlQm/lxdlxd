@@ -9,7 +9,7 @@
 #include "enchantment.hpp"
 
 
-enchantment::enchantment(string name, int cost, string description,player *p1, player *p2):card(name, cost, description, p1, p2), target{nullptr}{}
+enchantment::enchantment(string name, int cost, string description,player *p1, player *p2, string type):card(name, cost, description, p1, p2,type), target{nullptr}{}
 
 enchantment::~enchantment(){
 }

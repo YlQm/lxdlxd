@@ -8,7 +8,7 @@
 
 #include "spell.hpp"
 
-spell::spell(string name, int cost, string description, player *p1, player *p2):card{name, cost, description, p1, p2}{}
+spell::spell(string name, int cost, string description, player *p1, player *p2,string type):card{name, cost, description, p1, p2,type}{}
 
 spell::~spell(){}
 

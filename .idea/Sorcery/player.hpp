@@ -44,6 +44,7 @@ public:
     void destroy(minion &other);
     void summon(minion &other);
     void add_magic();
+    void play(int i);
 };
 
 
