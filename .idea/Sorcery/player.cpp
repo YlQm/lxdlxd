@@ -180,3 +180,21 @@ void player::change_ritual_charge(string how, int much){
         cout<<"You don't have a ritual card working for you"<<endl;
     }
 }
+
+void player::destroy_hand_card(card &other){
+    int record = other.gethandposition();
+    if(record == -1){cout<<"You don't have this spell in your hand"<<endl; return;}
+    card *temp = hand.at(record);
+    temp->sethandposition(-1);
+    hand.erase(hand.begin() + record);
+    --handamount;
+    cout<<"destroy target card successfully"<<endl;
+}
+
+
+void player::aoe(string how, int much){
+    for(int i = 0; i < battlefield.size(); i++){
+        battlefield.at(i)->changedefence(how, much);
+    }
+    cout<<"You've already dealed "<<much<<" damage to all minions on your battlefield"<<endl;
+}

@@ -17,6 +17,7 @@ class spell: public card{
 public:
     spell(string name, int cost, string description, player *p1, player *p2, string type);
     virtual ~spell();
+    virtual void being_destroy();
 };
 
 #endif /* spell_hpp */

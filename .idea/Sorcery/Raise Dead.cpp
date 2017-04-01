@@ -15,4 +15,5 @@ RaiseDead::~RaiseDead(){}
 
 void RaiseDead::raisedead(){
     p1->raise_dead();
+    p1->destroy_hand_card(*this);
 }

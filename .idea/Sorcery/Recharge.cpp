@@ -18,6 +18,7 @@ void Recharge::recharge(ritual &other){
     if(p1->getmagic() >= 1){
         p1->changemagic("minus", 1);
         p1->change_ritual_charge("plus", 3);
+        p1->destroy_hand_card(*this);
     } else {
         cout<<"No enough magic for Unsummon"<<endl;
     }

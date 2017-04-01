@@ -18,6 +18,7 @@ void Unsummon::unsummon(minion &other){
     if(p1->getmagic() >= 1){
         p1->changemagic("minus", 1);
         other.back_to_hand();
+        p1->destroy_hand_card(*this);
     } else {
         cout<<"No enough magic for Unsummon"<<endl;
     }

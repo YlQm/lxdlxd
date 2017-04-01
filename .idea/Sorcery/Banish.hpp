@@ -15,7 +15,7 @@
 #include "ritual.hpp"
 using namespace std;
 
-class Banish: public spell{
+class Banish:public spell{
 public:
     Banish(string name, int cost, string description, player *p1, player *p2, string type);
     ~Banish();
