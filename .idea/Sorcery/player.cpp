@@ -10,7 +10,7 @@
 #include "player.hpp"
 using namespace std;
 
-player::player(string name) : magic{3}, name{name}, health{20}, hand{}, handamount{0}, battlefield{},bfamount{0}, grave{}, graveamount{0}, deckamount{0}, r(nullptr), ritual_exist(false){}
+player::player(string name) : magic{3}, name{name}, health{20}, hand{}, handamount{0}, battlefield{},bfamount{0}, grave{}, graveamount{0}, deckamount{0}, r(nullptr), ritual_exist(false), turn{false}{}
 
 
 player::~player(){
@@ -20,30 +20,34 @@ player::~player(){
 }
 
 
-string player::getname(){
+const string player::getname(){
     return name;
 }
 
+const vector<card*> player::gethand(){return hand;}
+const vector<minion*> player::getbattlefield(){return battlefield;}
+const vector<minion*> player::getgrave(){return grave;}
+const ritual* player::getritual(){return r;}
 
-int player::getmagic(){
+const int player::getmagic(){
     return magic;
 }
 
 
-int player::gethealth(){
+const int player::gethealth(){
     return health;
 }
 
-int player::gethandzmount(){
+const int player::gethandamount(){
     return handamount;
 }
-int player::getbfamount(){
+const int player::getbfamount(){
     return bfamount;
 }
-int player::getgraveamount(){
+const int player::getgraveamount(){
     return graveamount;
 }
-int player::getdeckamount(){
+const int player::getdeckamount(){
     return deckamount;
 }
 void player::setname(string inputname){

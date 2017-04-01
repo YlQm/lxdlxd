@@ -14,14 +14,10 @@
 #include "minion.hpp"
 using namespace std;
 
-class Disenchant{
-    int cost;
-    string name;
-    string description;
+class Disenchant:public spell{
 public:
-    Disenchant();
+    Disenchant(string name, int cost, string description, player *p1, player *p2, string type);
     ~Disenchant();
-    string getdescription();
     
     //real work
     void disenchant(minion &other);

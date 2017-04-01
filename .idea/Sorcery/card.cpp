@@ -32,3 +32,7 @@ string card::getname(){
 int card::getcost(){
     return cost;
 }
+
+string card::gettype(){
+    return type;
+}

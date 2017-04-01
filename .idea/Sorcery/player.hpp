@@ -33,6 +33,7 @@ class player{
     ritual *r;
     bool ritual_exist;
     
+    bool turn;
     int magic;
     string name;
     int health;
@@ -42,13 +43,17 @@ public:
     
     ////////////////////////////////////////////
     void  setname(string inputname);
-    string getname();
-    int getmagic();
-    int gethealth();
-    int gethandzmount();
-    int getbfamount();
-    int getgraveamount();
-    int getdeckamount();
+    const string getname();
+    const int getmagic();
+    const int gethealth();
+    const int gethandamount();
+    const int getbfamount();
+    const int getgraveamount();
+    const int getdeckamount();
+    const vector<card*> gethand();
+    const vector<minion*> getbattlefield();
+    const vector<minion*> getgrave();
+    const ritual* getritual();
     void changehealth(string how, int much);
     void changemagic(string how, int much);
     void add_magic();

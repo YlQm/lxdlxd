@@ -33,4 +33,7 @@ void ritual::change_charge(string how, int much){
     } else {
         cout<<"use valid string"<<endl;
     }
+    if(charge <= 0){
+        being_destroy();
+    }
 }

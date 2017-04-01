@@ -16,10 +16,12 @@ using namespace std;
 
 class minion;
 class enchantment: public card{
+protected:
     minion *target;
 public:
     enchantment(string name, int cost, string description, player *p1, player *p2,string type);
     virtual ~enchantment();
+    virtual void being_destroy();
 };
 
 #endif

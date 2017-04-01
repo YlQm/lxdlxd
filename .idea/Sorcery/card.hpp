@@ -30,6 +30,7 @@ public:
     virtual string getname();
     virtual int getcost();
     virtual int gethandposition();
+    virtual string gettype();
     virtual void sethandposition(int newposition);
     string getdescription();
 };

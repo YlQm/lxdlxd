@@ -8,8 +8,9 @@
 
 #include "minion.hpp"
 #include "player.hpp"
+#include "enchantment.hpp"
 
-minion::minion(string name, int cost, string description, player *p1, player *p2,string type, int action, int defence, int attack):card{name, cost, description, p1, p2, type}, bfposition{-1}, action{action}, defence(defence), attack(attack){}
+minion::minion(string name, int cost, string description, player *p1, player *p2,string type, int action, int defence, int attack, int buffamount):card{name, cost, description, p1, p2, type}, bfposition{-1}, action{action}, defence(defence), attack(attack), buffamount{buffamount}{}
 
 minion::~minion(){}
 
@@ -30,8 +31,26 @@ void minion::changeattack(string how, int much){
     }
 }
 
+
 void minion::being_destroy(){
     p1->destroy(*this);
+}
+
+void minion::changeaction(string how, int much){
+    if (how == "plus"){
+        action += much;
+    }
+    else if (how == "minus"){
+        action -= much;
+    }
+    else if (how == "times"){
+        action *= much;
+    }
+    else if (how == "over"){
+        action /= much;
+    } else {
+        cout<<"use valid string"<<endl;
+    }
 }
 
 void minion::changedefence(string how, int much){
@@ -56,9 +75,11 @@ void minion::changedefence(string how, int much){
 
 
 void minion::hit(minion &other){
+    if(action == 0){cout<<"This minion is lazy"<<endl; return;}
     if((bfposition != -1) && (other.getbfposiotion() != -1)){
         other.being_hit(attack);
         changedefence("minus", other.attack);
+        --action;
     } else {
         cout<<"Minion is not in the battlefield"<<endl;
     }
@@ -94,4 +115,48 @@ void minion::set_defence(int newdefence){
 
 void minion::set_attack(int newattack){
     attack = newattack;
+}
+
+const vector<enchantment*>& minion::getbuff(){
+    return buff;
+}
+
+int minion::get_buff_amount(){
+    return buffamount;
+}
+
+void minion::add_buff(enchantment &other){
+    buff.at(buffamount) = &other;
+    ++buffamount;
+}
+
+void minion::get_enrage(){
+    if(p1->getmagic() < 2){cout<<"player1 doesn't have enough magic for Enrage"<<endl; return;}
+    p1->changemagic("minus", 2);
+    changedefence("times", 2);
+    changeattack("times", 2);
+}
+
+void minion::get_strength(){
+    if(p1->getmagic() < 1){cout<<"player1 doesn't have enough magic for GiantStrength"<<endl; return;}
+    p1->changemagic("minus", 1);
+    changeattack("plus", 2);
+    changeattack("plus", 2);
+}
+
+void minion::destroy_top_enchantment(){
+    enchantment *temp = buff.at(buff.size() - 1 );
+    delete temp;
+    buff.pop_back();
+    --buffamount;
+}
+
+void minion::add_action(){
+    ++action;
+}
+
+void minion::silence(bool zyb){
+    if(p1->getmagic() < 1){cout<<"player1 doesn't have enough magic for Silence"<<endl; return;}
+    p1->changemagic("minus", 1);
+    acability = zyb;
 }
