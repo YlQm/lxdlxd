@@ -8,11 +8,6 @@
 
 #include "Blizzard.hpp"
 
-Blizzard::Blizzard() :name{"Blizzard"},cost{3},description{"Deal 2 damage to all minions"}{}
-Blizzard::~Blizzard(){}
-
-string Blizzard::getdescription(){
-    return description;
-}
+Blizzard::Blizzard(string name, int cost, string description, player *p1, player *p2, string type):spell(name, cost, description,p1,p2,type){}
 
 void Blizzard::blizzard(){}

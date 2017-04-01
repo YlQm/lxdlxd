@@ -14,14 +14,10 @@
 #include "minion.hpp"
 using namespace std;
 
-class Unsummon{
-    int cost;
-    string name;
-    string description;
+class Unsummon: public spell{
 public:
-    Unsummon();
+    Unsummon(string name, int cost, string description, player *p1, player *p2, string type);
     ~Unsummon();
-    string getdescription();
     
     //real work
     void unsummon(minion &other);

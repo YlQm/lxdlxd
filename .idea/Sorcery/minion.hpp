@@ -29,6 +29,9 @@ public:
     virtual bool isdead();
     virtual int getbfposiotion();
     virtual void setbfposition(int newposition);
+    virtual void back_to_hand();
+    virtual void set_defence(int newdefence);
+    virtual void set_attack(int newattack);
 };
 
 #endif /* minion_hpp */

@@ -7,13 +7,30 @@
 //
 
 #include "ritual.hpp"
+#include "player.hpp"
 
-ritual::ritual() : name{""}, cost{0}{}
+ritual::ritual(string name, int cost, string description, player *p1, player *p2, string type,int acti_cost, int charge): card(name,cost,description,p1,p2,type),acti_cost(acti_cost),charge(charge)
+{}
 
 ritual::~ritual(){}
 
-void ritual::changeattack(string how, int much){}
+void ritual::being_destroy(){
+    p1->destroy_ritual();
+}
 
-void ritual::changehealth(string how, int much){}
-
-void ritual::useability(){}
+void ritual::change_charge(string how, int much){
+    if (how == "plus"){
+        charge += much;
+    }
+    else if (how == "minus"){
+        charge -= much;
+    }
+    else if (how == "times"){
+        charge *= much;
+    }
+    else if (how == "over"){
+        charge /= much;
+    } else {
+        cout<<"use valid string"<<endl;
+    }
+}

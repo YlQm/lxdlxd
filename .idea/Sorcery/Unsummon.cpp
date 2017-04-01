@@ -7,13 +7,18 @@
 //
 
 #include "Unsummon.hpp"
+#include "player.hpp"
 
 
-Unsummon::Unsummon() :name{"Unsummon"},cost{1},description{"Return target minion to its owner's hand"}{}
+Unsummon::Unsummon(string name, int cost, string description, player *p1, player *p2, string type):spell(name, cost, description,p1,p2,type){}
 Unsummon::~Unsummon(){}
 
-string Unsummon::getdescription(){
-    return description;
+void Unsummon::unsummon(minion &other){
+    if(this->gethandposition() == -1){cout<<"You don't have Unsummon in your hand"<<endl; return;}
+    if(p1->getmagic() >= 1){
+        p1->changemagic("minus", 1);
+        other.back_to_hand();
+    } else {
+        cout<<"No enough magic for Unsummon"<<endl;
+    }
 }
-
-void Unsummon::unsummon(minion &other){}

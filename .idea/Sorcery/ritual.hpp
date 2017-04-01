@@ -13,15 +13,18 @@
 #include "card.hpp"
 using namespace std;
 
+class minion;
+
 class ritual: public card{
-    int cost;
-    string name;
+protected:
+    int acti_cost;
+    int charge;
 public:
-    ritual();
+    ritual(string name, int cost, string description, player *p1, player *p2, string type,int acti_cost, int charge);
     virtual ~ritual();
-    virtual void changehealth(string how, int much);
-    virtual void changeattack(string how, int much);
-    virtual void useability();
+    void being_destroy();
+    void change_charge(string how, int much);
 };
 
 #endif /* ritual_hpp */
+

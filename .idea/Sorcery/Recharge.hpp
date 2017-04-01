@@ -14,12 +14,12 @@
 #include "ritual.hpp"
 using namespace std;
 
-class Recharge{
+class Recharge:public spell{
     int cost;
     string name;
     string description;
 public:
-    Recharge();
+    Recharge(string name, int cost, string description, player *p1, player *p2, string type);
     ~Recharge();
     string getdescription();
     

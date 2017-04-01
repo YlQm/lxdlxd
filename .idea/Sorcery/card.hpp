@@ -24,8 +24,11 @@ protected:
     string description;
     string type;//valid types are: minion, spell, enchantment, ritual.
 public:
+    
     card(string name, int cost, string description, player *p1, player *p2, string type);
     virtual ~card();
+    virtual string getname();
+    virtual int getcost();
     virtual int gethandposition();
     virtual void sethandposition(int newposition);
     string getdescription();

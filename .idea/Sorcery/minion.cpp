@@ -16,8 +16,17 @@ minion::~minion(){}
 void minion::changeattack(string how, int much){
     if (how == "plus"){
         attack += much;
-    } else {
+    }
+    else if (how == "minus"){
         attack -= much;
+    }
+    else if (how == "times"){
+        attack *= much;
+    }
+    else if (how == "over"){
+        attack /= much;
+    } else {
+        cout<<"use valid string"<<endl;
     }
 }
 
@@ -28,13 +37,23 @@ void minion::being_destroy(){
 void minion::changedefence(string how, int much){
     if (how == "plus"){
         defence += much;
-    } else {
+    }
+    else if (how == "minus"){
         defence -= much;
-        if(defence <= 0){
-            being_destroy();
-        }
+    }
+    else if (how == "times"){
+        defence *= much;
+    }
+    else if (how == "over"){
+        defence /= much;
+    } else {
+        cout<<"use valid string"<<endl;
+    }
+    if(defence <= 0){
+        being_destroy();
     }
 }
+
 
 void minion::hit(minion &other){
     if((bfposition != -1) && (other.getbfposiotion() != -1)){
@@ -63,4 +82,16 @@ int minion::getbfposiotion(){
 
 void minion::setbfposition(int newposition){
     bfposition = newposition;
+}
+
+void minion::back_to_hand(){
+    p1->bring_back(*this);
+}
+
+void minion::set_defence(int newdefence){
+    defence = newdefence;
+}
+
+void minion::set_attack(int newattack){
+    attack = newattack;
 }

@@ -24,3 +24,11 @@ void card::sethandposition(int newposition){
 string card::getdescription(){
     return description;
 }
+
+string card::getname(){
+    return name;
+}
+
+int card::getcost(){
+    return cost;
+}

@@ -13,14 +13,10 @@
 #include "spell.hpp"
 using namespace std;
 
-class RaiseDead{
-    int cost;
-    string name;
-    string description;
+class RaiseDead:public spell{
 public:
-    RaiseDead();
+    RaiseDead(string name, int cost, string description, player *p1, player *p2, string type);
     ~RaiseDead();
-    string getdescription();
     
     //real work
     void raisedead();

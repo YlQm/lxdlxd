@@ -10,7 +10,7 @@
 #include "player.hpp"
 using namespace std;
 
-player::player(string name) : magic{3}, name{name}, health{20}, hand{}, handamount{0}, battlefield{},bfamount{0}, grave{}, graveamount{0}, deckamount{0}{}
+player::player(string name) : magic{3}, name{name}, health{20}, hand{}, handamount{0}, battlefield{},bfamount{0}, grave{}, graveamount{0}, deckamount{0}, r(nullptr), ritual_exist(false){}
 
 
 player::~player(){
@@ -74,6 +74,7 @@ void player::destroy(minion &other){
     int record = other.getbfposiotion();
     if(record != -1){
         minion *temp = battlefield.at(record);
+        temp->setbfposition(-1);
         battlefield.erase(battlefield.begin() + record);
         --bfamount;
         grave.push_back(temp);
@@ -123,4 +124,59 @@ void player::draw(){
 
 void player::add_magic(){
     ++magic;
+}
+
+void player::destroy_ritual(){
+    delete r;
+    r = nullptr;
+    ritual_exist = false;
+}
+
+////////////////////////////////////////////////////////
+void player::bring_back(minion &other){
+    int record = other.getbfposiotion();
+    battlefield.erase(battlefield.begin() + record);
+    --bfamount;
+    if(handamount >= 5){
+        delete &other;
+    } else {
+        hand.push_back(&other);
+        ++handamount;
+        other.setbfposition(-1);
+        other.sethandposition(hand.size());
+    }
+}              ///////enchantment cards!!!!!
+///////////////////////////////////////////////////////////
+
+void player::raise_dead(){
+    if(grave.size() <= 0){
+        cout<<"No dead minions, cannot play RaiseDead!"<<endl;
+    } else {
+        minion *temp = grave.at(grave.size() - 1);
+        temp->set_defence(1);
+        temp->setbfposition(battlefield.size());
+        battlefield.push_back(temp);
+        grave.pop_back();
+    }
+}
+
+void player::change_ritual_charge(string how, int much){
+    if(ritual_exist == true){
+        if (how == "plus"){
+            r->change_charge("plus", much);
+        }
+        else if (how == "minus"){
+            r->change_charge("minus", much);
+        }
+        else if (how == "times"){
+            r->change_charge("times", much);
+        }
+        else if (how == "over"){
+            r->change_charge("over", much);
+        } else {
+            cout<<"use valid string"<<endl;
+        }
+    } else {
+        cout<<"You don't have a ritual card working for you"<<endl;
+    }
 }

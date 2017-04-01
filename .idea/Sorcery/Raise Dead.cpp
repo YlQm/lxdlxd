@@ -7,12 +7,12 @@
 //
 
 #include "Raise Dead.hpp"
+#include "player.hpp"
 
-RaiseDead::RaiseDead() :name{"RaiseDead"},cost{1},description{"Resurrect the top minion in your graveyard and set its defence to 1"}{}
+RaiseDead::RaiseDead(string name, int cost, string description, player *p1, player *p2, string type):spell(name, cost, description,p1,p2,type){}
 RaiseDead::~RaiseDead(){}
 
-string RaiseDead::getdescription(){
-    return description;
-}
 
-void RaiseDead::raisedead(){}
+void RaiseDead::raisedead(){
+    p1->raise_dead();
+}

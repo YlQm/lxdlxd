@@ -13,14 +13,10 @@
 #include "spell.hpp"
 using namespace std;
 
-class Blizzard{
-    int cost;
-    string name;
-    string description;
+class Blizzard:public spell{
 public:
-    Blizzard();
+    Blizzard(string name, int cost, string description, player *p1, player *p2, string type);
     ~Blizzard();
-    string getdescription();
     
     //real work
     void blizzard();
