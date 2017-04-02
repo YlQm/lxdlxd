@@ -44,7 +44,7 @@ void view::print_view(){
 
 
 
-card_template_t print_card(minion *m){
+card_template_t view::print_card(minion *m){
 	string type = c->gettype();
 	string cardname = c->getname();
 	int cardcost = c->getcost();
@@ -67,7 +67,7 @@ card_template_t print_card(minion *m){
 	return newcard;
 }
 
-card_template_t print_card(ritual *r){
+card_template_t view::print_card(ritual *r){
 	string cardname = c->getname();
 	int cardcost = c->getcost();
 	string carddes = c->getdescription();
@@ -77,7 +77,7 @@ card_template_t print_card(ritual *r){
 	return newcard;
 }
 
-card_template_t print_card(spell *s){
+card_template_t view::print_card(spell *s){
 	string cardname = c->getname();
 	int cardcost = c->getcost();
 	string carddes = c->getdescription();
@@ -85,7 +85,7 @@ card_template_t print_card(spell *s){
 	return newcard;
 }
 
-card_template_t print_card(enchantment *e){
+card_template_t view::print_card(enchantment *e){
 	string type = c->gettype();
 	string cardname = c->getname();
 	int cardcost = c->getcost();

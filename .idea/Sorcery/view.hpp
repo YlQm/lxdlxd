@@ -21,8 +21,11 @@ class view{
 public:
 	view();
 	~view();
-	void init_view();
 	void print_view();
-
+	card_template_t print_card(minion *m);
+	card_template_t print_card(ritual *r);
+	card_template_t print_card(spell *s);
+	card_template_t print_card(enchantment *e);
+	void update();
 }
 #endif
