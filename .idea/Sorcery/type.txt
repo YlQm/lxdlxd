@@ -3,5 +3,6 @@
 "no ability minion"
 "triggered ability minion"
 "activated ability minion"
-"spell"
+"non-target spell"
+"target spell"
 "ritual"
