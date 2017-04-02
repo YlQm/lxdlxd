@@ -1,0 +1,7 @@
+"enchantment"
+"enchantment with attack defence"
+"no ability minion"
+"triggered ability minion"
+"activated ability minion"
+"spell"
+"ritual"

@@ -31,6 +31,7 @@ public:
     card_template_t print_card(ritual *r);
     card_template_t print_card(spell *s);
     card_template_t print_card(enchantment *e);
+    card_template_t print_card(card *c);
     void update();
 };
 #endif

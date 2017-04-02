@@ -11,7 +11,7 @@
 #include "enchantment.cpp"
 #include "ritual.hpp"
 using namespace std;
-view::view():model{NULL},top{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_1_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
+view::view():mymodel{NULL},top{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_1_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
 	player1_battlefield{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
 	player2_battlefield{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
 	bottom{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_2_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
@@ -58,11 +58,11 @@ card_template_t view::print_card(minion *m){
     string type = m->gettype();
     string cardname = m->getname();
     int cardcost = m->getcost();
-    if (type == "no_ability_minion"){
+    if (type == "no ability minion"){
         int minionattack = m->getattack();
         int miniondefence = m->getdefence();
         card_template_t newcard = display_minion_no_ability(cardname, cardcost, minionattack, miniondefence);
-    }else if (type == "triggered_ability_minion"){
+    }else if (type == "triggered ability minion"){
         int minionattack = m->getattack();
         int miniondefence = m->getdefence();
         string carddes = m->getdescription();
@@ -111,10 +111,27 @@ card_template_t view::print_card(enchantment *e){
     return newcard;
 }
 
+card_template_t view::print_card(card *c){
+    string type = c->gettype();
+    if (type == "no ability minion" || type == "triggered ability minion" || type == "activated ability minion"){
+        minion *m = c;
+        return print_card(m);
+    } else if (type == "spell"){
+        spell *s = c;
+        return print_card(s);
+    } else if (type == "ritual"){
+        ritual *r = c;
+        return print_card(r);
+    } else{
+        enchantment *e = c;
+        return *e = c;
+    }
+}
+    
 void view::update(){
-    int hand1 = model->player1.gethandamount();
+    int hand1 = mymodel->gethand1().size();
     for (int i = 0; i < hand1; i++){
-        player1_hand.changecard(print_card(model->gethand1()[i]), i);
+        player1_hand.changecard(print_card(mymodel->gethand1()[i]), i);
     }
     if (hand1 < 5){
         int n = 5 - hand1;
@@ -122,9 +139,9 @@ void view::update(){
             player1_hand.changecard(CARD_TEMPLATE_EMPTY, i);
         }
     }
-    int hand2 = model->player2.gethandamount();
+    int hand2 = mymodel->gethand2().size();
     for (int i = 0; i < hand1; i++){
-        player2_hand.changecard(print_card(model->gethand2()[i]), i);
+        player2_hand.changecard(print_card(mymodel->gethand2()[i]), i);
     }
     if (hand2 < 5){
         int n = 5 - hand1;
@@ -132,9 +149,9 @@ void view::update(){
             player2_hand.changecard(CARD_TEMPLATE_EMPTY, i);
         }
     }
-    int battlefield1 = model->player1.getbfamount();
+    int battlefield1 = mymodel->getbattlefield1().size();
     for (int i = 0; i < battlefield1; i++){
-        player1_battlefield.changecard(print_card(model->getbattlefield1()[i]), i);
+        player1_battlefield.changecard(print_card(mymodel->getbattlefield1()[i]), i);
     }
     if (battlefield1 < 5){
         int n = 5 - battlefield1;
@@ -142,9 +159,9 @@ void view::update(){
             player1_battlefield.changecard(CARD_TEMPLATE_EMPTY, i);
         }
     }
-    int battlefield2 = model->player2.getbfamount();
+    int battlefield2 = mymodel->getbattlefield2().size();
     for (int i = 0; i < battlefield2; i++){
-        player2_battlefield.changecard(print_card(model->getbattlefield2()[i]), i);
+        player2_battlefield.changecard(print_card(mymodel->getbattlefield2()[i]), i);
     }
     if (battlefield2 < 5){
         int n = 5 - battlefield2;
@@ -153,21 +170,21 @@ void view::update(){
         }
     }
     
-    if (model.getplayer1ritual()){
-        top.changecard(print_card(model->getplayer1ritual()),1);
+    if (mymodel.getplayer1ritual()){
+        top.changecard(print_card(mymodel->getplayer1ritual()),1);
     }
-    if (model.getplayer2ritual()){
-        bottom.changecard(print_card(model->getplayer2ritual()),5);
+    if (mymodel.getplayer2ritual()){
+        bottom.changecard(print_card(mymodel->getplayer2ritual()),5);
     }
-    if (model.getplayer1grave()){
-        top.changecard(print_card(model->getplayer1grave()),1);
+    if (mymodel.getplayer1grave()){
+        top.changecard(print_card(mymodel->getplayer1grave()),1);
     }
-    if (model.getplayer2grave()){
-        bottom.changecard(print_card(model->getplayer2grave()),5);
+    if (mymodel.getplayer2grave()){
+        bottom.changecard(print_card(mymodel->getplayer2grave()),5);
     }
     
-    updateplayer(model->getplayer1(),1);
-    updateplayer(model->getplayer2(),2);
+    updateplayer(mymodel->getplayer1(),1);
+    updateplayer(mymodel->getplayer2(),2);
     print_view();
 }
 
