@@ -1,3 +1,10 @@
+//
+//  view.cpp
+//  Sorcery
+//
+//  Created by 刘然 on 2017-04-01.
+//  Copyright © 2017 刘然. All rights reserved.
+//
 
 #include <string>
 #include <iostream>
@@ -5,18 +12,17 @@
 #include "ascii_graphics.hpp"
 #include "view.hpp"
 #include "card.hpp"
-#include "model.hpp"
 #include "minion.hpp"
 #include "spell.hpp"
 #include "enchantment.cpp"
 #include "ritual.hpp"
 using namespace std;
 view::view():mymodel{NULL},top{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_1_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
-	player1_battlefield{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
-	player2_battlefield{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
-	bottom{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_2_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
-	player1_hand{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_2_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
-	player2_hand{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_2_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)}{}
+player1_battlefield{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
+player2_battlefield{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
+bottom{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_2_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
+player1_hand{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_2_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
+player2_hand{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_2_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)}{}
 
 
 view::~view(){
@@ -34,7 +40,7 @@ void view::print_hand(int i){ // i represent which player is active
     } else{
         cout << player2_hand;
     }
-
+    
 }
 
 
@@ -130,21 +136,21 @@ card_template_t view::print_card(card *c){
             cout<<"bad casting in view"<<endl;
         }
     } else if (type == "target spell" || type == "non-target spell"){
-        spell *s = dynamic_cast<minion*>(c);
+        spell *s = dynamic_cast<spell*>(c);
         if (s){
             return print_card(s);
         } else {
             cout<<"bad casting in view"<<endl;
         }
     } else if (type == "ritual"){
-        ritual *r = dynamic_cast<minion*>(c);
+        ritual *r = dynamic_cast<ritual*>(c);
         if (r){
             return print_card(r);
         } else {
             cout<<"bad casting in view"<<endl;
         }
     } else{
-        enchantment *e = dynamic_cast<minion*>(c);
+        enchantment *e = dynamic_cast<enchantment*>(c);
         if (e){
             return print_card(e);
         } else {
@@ -155,49 +161,49 @@ card_template_t view::print_card(card *c){
 
 void view::inspect(int i, int n){ // i represent which player is active and n is the position of the minion
     if (i == 1){
-        minion m = mymodel->getbattlefield1()[n];
-        int numofbuff = m.getbuff().size();
+        minion *m = mymodel->getbattlefield1()[n];
+        int numofbuff = m->getbuff().size();
         line buffline = line(print_card(m),CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY);
         cout << buffline;
         while(numofbuff > 5){
             for (int i = 0; i < 5; i++){
-                buffline.changecard(print_card(m.getbuff[i]), i);
+                buffline.changecard(print_card(m->getbuff()[i]), i);
             }
             numofbuff -= 5;
-
+            
             cout << buffline;
         }
         line emptyline = line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY);
         for (int j = 0; j < numofbuff; j++){
-            emptyline.changecard(print_card(m.getbuff[j]), j);
+            emptyline.changecard(print_card(m->getbuff()[j]), j);
         }
         cout << buffline;
     } else{
-        minion m = mymodel->getbattlefield2()[n];
-        int numofbuff = m.getbuff().size();
+        minion *m = mymodel->getbattlefield2()[n];
+        int numofbuff = m->getbuff().size();
         line buffline = line(print_card(m),CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY);
         cout << buffline;
         while(numofbuff > 5){
             for (int i = 0; i < 5; i++){
-                buffline.changecard(print_card(m.getbuff[i]), i);
+                buffline.changecard(print_card(m->getbuff()[i]), i);
             }
             numofbuff -= 5;
-
+            
             cout << buffline;
         }
         line emptyline = line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY);
         for (int j = 0; j < numofbuff; j++){
-            emptyline.changecard(print_card(m.getbuff[j]), j);
+            emptyline.changecard(print_card(m->getbuff()[j]), j);
         }
         cout << buffline;
     }
 }
-    
+
 
 void view::updateplayer(player p, int i){//i represent this is player1 or player2
     string playername = p.getname();
     int playerhealth = p.gethealth();
-    int playermana = p.getmana();
+    int playermana = p.getmagic();
     card_template_t newcard = display_player_card(i, playername, playerhealth, playermana);
     if (i == 1){
         top.changecard(newcard, 3);
@@ -249,19 +255,19 @@ void view::update(){
         }
     }
     
-    if (mymodel.getritual1()){
+    if (mymodel->getritual1()){
         top.changecard(print_card(mymodel->getritual1()),1);
     }
-    if (mymodel.getritual2()){
+    if (mymodel->getritual2()){
         bottom.changecard(print_card(mymodel->getritual2()),1);
     }
-    int i = mymodel.getgrave1().size();
-    if (mymodel.getgrave1()[i]){
-        top.changecard(print_card(mymodel->getgrave1()),5);
+    int i = mymodel->getgrave1().size();
+    if (mymodel->getgrave1()[i]){
+        top.changecard(print_card(mymodel->getgrave1()[i]),5);
     }
-    int j = mymodel.getgrave2().size();
-    if (mymodel.getgrave2()[j]){
-        bottom.changecard(print_card(mymodel->getgrave2()),5);
+    int j = mymodel->getgrave2().size();
+    if (mymodel->getgrave2()[j]){
+        bottom.changecard(print_card(mymodel->getgrave2()[j]),5);
     }
     
     updateplayer(mymodel->getplayer1(),1);
