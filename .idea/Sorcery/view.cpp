@@ -1,10 +1,3 @@
-//
-//  view.cpp
-//  Sorcery
-//
-//  Created by 刘然 on 2017-04-01.
-//  Copyright © 2017 刘然. All rights reserved.
-//
 
 #include <string>
 #include <iostream>
@@ -18,16 +11,21 @@
 #include "enchantment.cpp"
 #include "ritual.hpp"
 using namespace std;
-view::view(){}
+view::view():model{NULL},top{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_1_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
+	player1_battlefield{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
+	player2_battlefield{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
+	bottom{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_2_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
+	player1_hand{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_2_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
+	player2_hand{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_2_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)}{}
 
 
 view::~view(){
-    clearline(top);
-    clearline(player1_battlefield);
-    clearline(player2_battlefield);
-    clearline(bottom);
-    clearline(player1_hand);
-    clearline(player2_hand);
+    top.clearline();
+    player1_battlefield.clearline();
+    player2_battlefield.clearline();
+    bottom.clearline();
+    player1_hand.clearline();
+    player2_hand.clearline();
 }
 
 
@@ -80,37 +78,34 @@ card_template_t view::print_card(minion *m){
 }
 
 card_template_t view::print_card(ritual *r){
-    ritual *c = r;
-    string cardname = c->getname();
-    int cardcost = c->getcost();
-    string carddes = c->getdescription();
-    int cardcharge = c->getcharge();
-    int ritualcost = c->getritualcost();
+    string cardname = r->getname();
+    int cardcost = r->getcost();
+    string carddes = r->getdescription();
+    int cardcharge = r->getcharge();
+    int ritualcost = r->getritualcost();
     card_template_t newcard = display_ritual(cardname, cardcost, ritualcost, carddes , cardcharge);
     return newcard;
 }
 
 card_template_t view::print_card(spell *s){
-    spell *c = s;
-    string cardname = c->getname();
-    int cardcost = c->getcost();
-    string carddes = c->getdescription();
+    string cardname = s->getname();
+    int cardcost = s->getcost();
+    string carddes = s->getdescription();
     card_template_t newcard = display_spell(cardname, cardcost, carddes);
     return newcard;
 }
 
 card_template_t view::print_card(enchantment *e){
-    enchantment *c = e;
-    string type = c->gettype();
-    string cardname = c->getname();
-    int cardcost = c->getcost();
+    string type = e->gettype();
+    string cardname = e->getname();
+    int cardcost = e->getcost();
     if (type == "enchantment"){
-        string carddes = c->getdescription();
+        string carddes = e->getdescription();
         card_template_t newcard = display_enchantment(cardname, cardcost, carddes);
     }else {
-        string carddes = c->getdescription();
-        string enchantmentattack = c->getattack();
-        string enchantmentdefence = c->getdefence();
+        string carddes = e->getdescription();
+        string enchantmentattack = e->getattack();
+        string enchantmentdefence = e->getdefence();
         card_template_t newcard = display_enchantment_attack_defence(cardname, cardcost, carddes, enchantmentattack, enchantmentdefence);
     }
     return newcard;

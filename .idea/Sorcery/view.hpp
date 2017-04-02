@@ -1,10 +1,3 @@
-//
-//  view.hpp
-//  Sorcery
-//
-//  Created by 刘然 on 2017-04-01.
-//  Copyright © 2017 刘然. All rights reserved.
-//
 
 #ifndef view_hpp
 #define view_hpp
