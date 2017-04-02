@@ -1,3 +1,10 @@
+//
+//  view.cpp
+//  Sorcery
+//
+//  Created by 刘然 on 2017-04-01.
+//  Copyright © 2017 刘然. All rights reserved.
+//
 
 #include <string>
 #include <iostream>
@@ -28,7 +35,7 @@ view::~view(){
     player2_hand.clearline();
 }
 
-void view::print_hand(const int i){ // i represent which player is active
+void view::print_hand( int i){ // i represent which player is active
     if (i == 1){
         cout << player1_hand;
     } else{
@@ -63,7 +70,7 @@ void view::print_view(){
 
 
 
-card_template_t view::print_card(const minion *m){
+card_template_t view::print_card( minion *m){
     string type = m->gettype();
     string cardname = m->getname();
     int cardcost = m->getcost();
@@ -89,7 +96,7 @@ card_template_t view::print_card(const minion *m){
     
 }
 
-card_template_t view::print_card(const ritual *r){
+card_template_t view::print_card( ritual *r){
     string cardname = r->getname();
     int cardcost = r->getcost();
     string carddes = r->getdescription();
@@ -99,7 +106,7 @@ card_template_t view::print_card(const ritual *r){
     return newcard;
 }
 
-card_template_t view::print_card(const spell *s){
+card_template_t view::print_card( spell *s){
     string cardname = s->getname();
     int cardcost = s->getcost();
     string carddes = s->getdescription();
@@ -107,7 +114,7 @@ card_template_t view::print_card(const spell *s){
     return newcard;
 }
 
-card_template_t view::print_card(const enchantment *e){
+card_template_t view::print_card( enchantment *e){
     string type = e->gettype();
     string cardname = e->getname();
     int cardcost = e->getcost();
@@ -124,7 +131,7 @@ card_template_t view::print_card(const enchantment *e){
     }
 }
 
-card_template_t view::print_card(const card *c){
+card_template_t view::print_card( card *c){
     string type = c->gettype();
     if (type == "no ability minion" || type == "triggered ability minion" || type == "activated ability minion"){
         minion *m = dynamic_cast<minion*>(c);
@@ -132,6 +139,7 @@ card_template_t view::print_card(const card *c){
             return print_card(m);
         } else {
             cout<<"bad casting in view"<<endl;
+            return CARD_TEMPLATE_EMPTY;
         }
     } else if (type == "target spell" || type == "non-target spell"){
         spell *s = dynamic_cast<spell*>(c);
@@ -139,6 +147,7 @@ card_template_t view::print_card(const card *c){
             return print_card(s);
         } else {
             cout<<"bad casting in view"<<endl;
+            return CARD_TEMPLATE_EMPTY;
         }
     } else if (type == "ritual"){
         ritual *r = dynamic_cast<ritual*>(c);
@@ -146,6 +155,7 @@ card_template_t view::print_card(const card *c){
             return print_card(r);
         } else {
             cout<<"bad casting in view"<<endl;
+            return CARD_TEMPLATE_EMPTY;
         }
     } else{
         enchantment *e = dynamic_cast<enchantment*>(c);
@@ -153,11 +163,12 @@ card_template_t view::print_card(const card *c){
             return print_card(e);
         } else {
             cout<<"bad casting in view"<<endl;
+            return CARD_TEMPLATE_EMPTY;
         }
     }
 }
 
-void view::inspect(const int i,const  int n){ // i represent which player is active and n is the position of the minion
+void view::inspect( int i,  int n){ // i represent which player is active and n is the position of the minion
     if (i == 1){
         minion *m = mymodel->getbattlefield1()[n];
         int numofbuff = m->getbuff().size();
@@ -198,7 +209,7 @@ void view::inspect(const int i,const  int n){ // i represent which player is act
 }
 
 
-void view::updateplayer(const player p,const  int i){//i represent this is player1 or player2
+void view::updateplayer( player p,  int i){//i represent this is player1 or player2
     string playername = p.getname();
     int playerhealth = p.gethealth();
     int playermana = p.getmagic();
