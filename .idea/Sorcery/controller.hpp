@@ -10,5 +10,16 @@
 #define controller_hpp
 
 #include <stdio.h>
+#include "model.hpp"
+#include "view.hpp"
+
+class controller{
+    model *m;
+    view *v;
+public:
+    controller();
+    ~controller();
+    void run(bool test);
+};
 
 #endif /* controller_hpp */
