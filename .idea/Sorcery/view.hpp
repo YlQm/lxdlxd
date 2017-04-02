@@ -1,10 +1,3 @@
-//
-//  view.hpp
-//  Sorcery
-//
-//  Created by 刘然 on 2017-04-01.
-//  Copyright © 2017 刘然. All rights reserved.
-//
 
 #ifndef view_hpp
 #define view_hpp
@@ -14,7 +7,6 @@
 #include <vector>
 #include "ascii_graphics.hpp"
 #include "line.hpp"
-#include "model.hpp"
 using namespace std;
 class minion;
 class ritual;
@@ -22,7 +14,6 @@ class spell;
 class enchantment;
 class card;
 class model;
-
 
 class view{
     model *mymodel;
@@ -35,15 +26,15 @@ class view{
 public:
     view();
     ~view();
-    void print_hand(int i);
+    void print_hand(const int i);
     void print_view();
-    card_template_t print_card(minion *m);
-    card_template_t print_card(ritual *r);
-    card_template_t print_card(spell *s);
-    card_template_t print_card(enchantment *e);
-    card_template_t print_card(card *c);
-    void inspect(int i, int n);
-    void updateplayer(player p, int i);
+    card_template_t print_card(const minion *m);
+    card_template_t print_card(const ritual *r);
+    card_template_t print_card(const spell *s);
+    card_template_t print_card(const enchantment *e);
+    card_template_t print_card(const card *c);
+    void inspect(const nt i, const int n);
+    void updateplayer(const player p, const int i);
     void update();
 };
 #endif
