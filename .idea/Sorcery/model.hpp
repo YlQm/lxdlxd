@@ -28,8 +28,8 @@ public:
     const vector<minion*> getbattlefield2();
     const vector<minion*> getgrave1();
     const vector<minion*> getgrave2();
-    const ritual* getplayer1ritual();
-    const ritual* getplayer2ritual();
+    ritual* getritual1();
+    ritual* getritual2();
 };
 
 #endif

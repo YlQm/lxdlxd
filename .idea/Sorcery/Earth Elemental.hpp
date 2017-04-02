@@ -14,7 +14,7 @@
 
 class EarthElemental:public minion{
 public:
-    EarthElemental(string name, int cost, string description, player *p1, player *p2, string type, int action, int defence, int attack, int buffamount);
+    EarthElemental(string name, int cost, string description, player *p1, player *p2, string type, int action, int defence, int attack, int buffamount,int activated_ability_cost);
     ~EarthElemental();
 };
 

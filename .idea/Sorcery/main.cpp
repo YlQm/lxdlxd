@@ -12,7 +12,6 @@
 #include "player.hpp"
 
 int main(int argc, char *argv[]){
-    player player1, player2;
     
     string player1name, player2name;
     string initfilename;
@@ -28,8 +27,9 @@ int main(int argc, char *argv[]){
     ifstream initfile{initfilename};
     initfile >> player1name;
     initfile >> player2name;
-    player1.setname(player1name);
-    player2.setname(player2name);
+    player player1 {player1name};
+    player player2 {player2name};
+    
     try {
         while (1){
             if (turn == 0) {

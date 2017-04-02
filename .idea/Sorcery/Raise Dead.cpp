@@ -13,7 +13,9 @@ RaiseDead::RaiseDead(string name, int cost, string description, player *p1, play
 RaiseDead::~RaiseDead(){}
 
 
-void RaiseDead::raisedead(){
+void RaiseDead::using_ability(){
     p1->raise_dead();
-    p1->destroy_hand_card(*this);
 }
+
+
+

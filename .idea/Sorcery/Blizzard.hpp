@@ -19,7 +19,7 @@ public:
     ~Blizzard();
     
     //real work
-    void blizzard();
+    void using_ability()override;
 };
 
 #endif /* Blizzard_hpp */

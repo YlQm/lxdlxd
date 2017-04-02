@@ -10,7 +10,7 @@
 #include "player.hpp"
 using namespace std;
 
-player::player(string name) : magic{3}, name{name}, health{20}, hand{}, handamount{0}, battlefield{},bfamount{0}, grave{}, graveamount{0}, deckamount{0}, r(nullptr), ritual_exist(false), turn{false}{}
+player::player(string name) : magic{3}, name{name}, health{20}, hand{},  battlefield{}, grave{},  r(nullptr), ritual_exist(false), turn{false}{}
 
 
 player::~player(){
@@ -27,7 +27,7 @@ const string player::getname(){
 const vector<card*> player::gethand(){return hand;}
 const vector<minion*> player::getbattlefield(){return battlefield;}
 const vector<minion*> player::getgrave(){return grave;}
-const ritual* player::getritual(){return r;}
+ritual* player::getritual(){return r;}
 
 const int player::getmagic(){
     return magic;
@@ -38,18 +38,6 @@ const int player::gethealth(){
     return health;
 }
 
-const int player::gethandamount(){
-    return handamount;
-}
-const int player::getbfamount(){
-    return bfamount;
-}
-const int player::getgraveamount(){
-    return graveamount;
-}
-const int player::getdeckamount(){
-    return deckamount;
-}
 void player::setname(string inputname){
     name = inputname;
 }
@@ -80,47 +68,48 @@ void player::destroy(minion &other){
         minion *temp = battlefield.at(record);
         temp->setbfposition(-1);
         battlefield.erase(battlefield.begin() + record);
-        --bfamount;
         grave.push_back(temp);
-        ++graveamount;
     } else {
         cout<<"Can't see the minion in your battlefield"<<endl;
     }
 }
 
 void player::summon(minion &other){
-    if(bfamount >= 5){
+    if(battlefield.size() >= 5){
         cout<<"Max minions summoned"<<endl;
     } else {
         if(other.gethandposition() != -1){
             hand.erase(hand.begin() + other.gethandposition());
             other.sethandposition(-1);
-            --handamount;
             battlefield.push_back(&other);
-            other.setbfposition(bfamount);
-            ++bfamount;
+            other.setbfposition(battlefield.size());
+            changemagic("minus", other.getcost());
         } else {
             cout<<"You don't have this card in your hand"<<endl;
         }
     }
 }
 
+void player::reorder_hand(){
+    for(int i = 0; i <hand.size();i++){
+        hand.at(i)->sethandposition(i);
+    }
+}
+
 void player::draw(){
-    if(handamount >= 5){
+    if(hand.size() >= 5){
         cout<<name<<"'s hand is full, can't draw"<<endl;
     } else {
-        if(deckamount <= 0){
+        if(deck.size() <= 0){
             //this->changehealth("minus", deckamount);
             //--deckamount;  疲劳
             cout<<"No cards"<<endl;
         } else {
-            int newposition = hand.size() - 1;
+            int newposition = hand.size();
             card *temp = deck.at(deck.size() - 1);
             temp->sethandposition(newposition);
             hand.push_back(temp);
             deck.pop_back();
-            --deckamount;
-            ++handamount;
         }
     }
     
@@ -136,21 +125,21 @@ void player::destroy_ritual(){
     ritual_exist = false;
 }
 
-////////////////////////////////////////////////////////
+
 void player::bring_back(minion &other){
     int record = other.getbfposiotion();
     battlefield.erase(battlefield.begin() + record);
-    --bfamount;
-    if(handamount >= 5){
+    for(int i = 0; i < other.getbuff().size(); i++){
+        other.destroy_top_enchantment();
+    }
+    if(hand.size() >= 5){
         delete &other;
     } else {
         hand.push_back(&other);
-        ++handamount;
         other.setbfposition(-1);
         other.sethandposition(hand.size());
     }
-}              ///////enchantment cards!!!!!
-///////////////////////////////////////////////////////////
+}
 
 void player::raise_dead(){
     if(grave.size() <= 0){
@@ -191,7 +180,6 @@ void player::destroy_hand_card(card &other){
     card *temp = hand.at(record);
     temp->sethandposition(-1);
     hand.erase(hand.begin() + record);
-    --handamount;
     cout<<"destroy target card successfully"<<endl;
 }
 
@@ -202,3 +190,154 @@ void player::aoe(string how, int much){
     }
     cout<<"You've already dealed "<<much<<" damage to all minions on your battlefield"<<endl;
 }
+
+void player::play(int i){
+    if(i > hand.size()){
+        cout<<"You don't have that card in your hand"<<endl;
+    } else {
+        card *temp = hand.at(i - 1);
+        if(temp->getcost() > magic){
+            cout<<"You don't have enough magic for that card's cost"<<endl;
+        } else {
+            magic -= temp->getcost();
+            if((temp->gettype() == "no ability minion")||(temp->gettype() == "triggered ability minion")
+            || (temp->gettype() == "activated ability minion")){
+                minion *m = dynamic_cast<minion*>(temp);
+                if(m){
+                    summon(*m);
+                    hand.erase(hand.begin() + temp->gethandposition());
+                    temp->sethandposition(-1);
+                    reorder_hand();
+                } else {
+                    cout<<"casting error"<<endl;
+                }
+            }
+            else if(temp->gettype() == "ritual"){
+                ritual *ri = dynamic_cast<ritual*>(temp);
+                if(ri){
+                    r = ri;
+                    ritual_exist = true;
+                    hand.erase(hand.begin() + temp->gethandposition());
+                    temp->sethandposition(-1);
+                    reorder_hand();
+                }else{
+                    cout<<"casting error"<<endl;
+                }
+            }
+            else if(temp->gettype() == "non-target spell"){
+                spell *spl = dynamic_cast<spell*>(temp);
+                if(spl){
+                    spl->being_used();
+                    hand.erase(hand.begin() + temp->gethandposition());
+                    temp->sethandposition(-1);
+                    reorder_hand();
+                } else {
+                    cout<<"casting error"<<endl;
+                }
+            }
+        }
+    }
+}
+
+void player::play(int i, string whichplayer, int j){
+    if(i > hand.size()){cout<<"You don't have that card in your hand"<<endl;return;}
+    else {
+        card *temp = hand.at(i - 1);
+        if(temp->getcost() > magic){
+            cout<<"You don't have enough magic for that card's cost"<<endl;
+            return;
+        } else {
+            magic -= temp->getcost();
+            if((temp->gettype() == "enchantment")||(temp->gettype() == "enchantment with attack defence")){
+                enchantment* en = dynamic_cast<enchantment*>(temp);
+                if(en){
+                    if(whichplayer == "player1"){
+                        if(j > battlefield.size()){
+                            cout<<"You can't modify unexisting minion"<<endl;
+                            return;
+                        } else {
+                            en->settarget(*battlefield.at(j - 1));
+                            en->using_ability();
+                            battlefield.at(j - 1)->add_buff(*en);
+                            destroy_hand_card(*en);
+                            return;
+                        }
+                    } else {
+                        if(j > en->getenemy()->battlefield.size()){
+                            cout<<"You can't modify unexisting minion"<<endl;
+                            return;
+                        } else {
+                            en->settarget(*en->getenemy()->battlefield.at(j - 1));
+                            en->using_ability();
+                            en->getenemy()->battlefield.at(j - 1)->add_buff(*en);
+                            destroy_hand_card(*en);
+                            return;
+                        }
+                    }
+                } else {
+                    cout<<"casting error"<<endl;
+                    return;
+                }
+            }
+            else if(temp->gettype() == "target spell"){
+                spell *sp = dynamic_cast<spell*>(temp);
+                if(sp){
+                    if(whichplayer == "player1"){
+                        if(j > battlefield.size()){
+                            cout<<"You can't modify unexisting minion"<<endl;
+                            return;
+                        } else {
+                            if(j == -1){
+                                sp->using_ability(*r);
+                                destroy_hand_card(*sp);
+                                delete sp;
+                                return;
+                            } else {
+                                sp->using_ability(*battlefield.at(j - 1));
+                                destroy_hand_card(*sp);
+                                delete sp;
+                                return;
+                            }
+                        }
+                    } else {
+                        if(j > sp->getenemy()->battlefield.size()){
+                            cout<<"You can't modify unexisting minion"<<endl;
+                            return;
+                        } else {
+                            if(j == -1){
+                                sp->using_ability(*sp->getenemy()->getritual());
+                                destroy_hand_card(*sp);
+                                delete sp;
+                                return;
+                            } else {
+                                sp->using_ability(*sp->getenemy()->getbattlefield().at(j - 1));
+                                destroy_hand_card(*sp);
+                                delete sp;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

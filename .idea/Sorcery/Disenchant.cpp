@@ -13,13 +13,6 @@ Disenchant::Disenchant(string name, int cost, string description, player *p1, pl
 Disenchant::~Disenchant(){}
 
 
-void Disenchant::disenchant(minion &other){
-    if(this->gethandposition() == -1){cout<<"You don't have Dienchant in your hand"<<endl; return;}
-    if(p1->getmagic() >= 1){
-        p1->changemagic("minus", 1);
+void Disenchant::using_ability(minion &other){
         other.destroy_top_enchantment();
-        p1->destroy_hand_card(*this);
-    } else {
-        cout<<"No enough magic for Disenchant"<<endl;
-    }
 }

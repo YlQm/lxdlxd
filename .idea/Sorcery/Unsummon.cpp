@@ -8,18 +8,13 @@
 
 #include "Unsummon.hpp"
 #include "player.hpp"
+#include "minion.hpp"
 
 
 Unsummon::Unsummon(string name, int cost, string description, player *p1, player *p2, string type):spell(name, cost, description,p1,p2,type){}
 Unsummon::~Unsummon(){}
 
-void Unsummon::unsummon(minion &other){
-    if(this->gethandposition() == -1){cout<<"You don't have Unsummon in your hand"<<endl; return;}
-    if(p1->getmagic() >= 1){
-        p1->changemagic("minus", 1);
+void Unsummon::using_ability(minion &other){
         other.back_to_hand();
-        p1->destroy_hand_card(*this);
-    } else {
-        cout<<"No enough magic for Unsummon"<<endl;
-    }
 }
+

@@ -20,7 +20,7 @@ public:
     ~Disenchant();
     
     //real work
-    void disenchant(minion &other);
+    void using_ability(minion &other)override;
 };
 
 #endif /* Disenchant_hpp */

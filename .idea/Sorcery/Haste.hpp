@@ -15,9 +15,9 @@
 class Haste:public enchantment{
     bool added = false;
 public:
-    Haste(string name, int cost, string description, player *p1, player *p2,string type);
+    Haste(string name, int cost, string description, player *p1, player *p2,string type, string a, string d);
     ~Haste();
-    void haste();
+    void using_ability() override;
     void is_added();
 };
 

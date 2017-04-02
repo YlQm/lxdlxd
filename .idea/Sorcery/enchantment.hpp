@@ -17,11 +17,17 @@ using namespace std;
 class minion;
 class enchantment: public card{
 protected:
+    string attack_buff;
+    string defence_buff;
     minion *target;
 public:
-    enchantment(string name, int cost, string description, player *p1, player *p2,string type);
+    enchantment(string name, int cost, string description, player *p1, player *p2,string type, string a, string d);
     virtual ~enchantment();
     virtual void being_destroy();
+    virtual string getattack();
+    virtual string getdefence();
+    virtual void settarget(minion &other);
+    virtual void using_ability();
 };
 
 #endif

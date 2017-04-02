@@ -9,13 +9,13 @@
 #include "Enrage.hpp"
 #include "minion.hpp"
 
-Enrage::Enrage(string name, int cost, string description, player *p1, player *p2,string type):enchantment{name, cost, description, p1, p2, type}{}
+Enrage::Enrage(string name, int cost, string description, player *p1, player *p2,string type, string a, string d):enchantment{name, cost, description, p1, p2, type, a, d}{}
 
 Enrage::~Enrage(){
     target = nullptr;
 }
 
-void Enrage::enrage(){
+void Enrage::using_ability(){
     target->get_enrage();
     target->add_buff(*this);
 }

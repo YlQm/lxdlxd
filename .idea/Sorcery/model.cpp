@@ -19,5 +19,5 @@ const vector<minion*> model::getbattlefield1(){return player1.getbattlefield();}
 const vector<minion*> model::getbattlefield2(){return player2.getbattlefield();}
 const vector<minion*> model::getgrave1(){return player1.getgrave();}
 const vector<minion*> model::getgrave2(){return player2.getgrave();}
-const ritual* model::getplayer1ritual(){return player1.getritual();}
-const ritual* model::getplayer2ritual(){return player2.getritual();}
+ritual* model::getritual1(){return player1.getritual();}
+ritual* model::getritual2(){return player2.getritual();}

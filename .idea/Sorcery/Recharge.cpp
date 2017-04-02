@@ -13,13 +13,7 @@ Recharge::Recharge(string name, int cost, string description, player *p1, player
 Recharge::~Recharge(){}
 
 
-void Recharge::recharge(ritual &other){
-    if(this->gethandposition() == -1){cout<<"You don't have Recharge in your hand"<<endl; return;}
-    if(p1->getmagic() >= 1){
-        p1->changemagic("minus", 1);
-        p1->change_ritual_charge("plus", 3);
-        p1->destroy_hand_card(*this);
-    } else {
-        cout<<"No enough magic for Unsummon"<<endl;
-    }
+
+void Recharge::using_ability(){
+    p1->change_ritual_charge("plus", 3);
 }

@@ -14,10 +14,11 @@
 
 class Enrage:public enchantment{
 public:
-    Enrage(string name, int cost, string description, player *p1, player *p2,string type);
+    Enrage(string name, int cost, string description, player *p1, player *p2,string type, string a, string d);
     ~Enrage();
     void enrage();
     void being_destroy() override;
+    void using_ability() override;
 };
 
 #endif /* Enrage_hpp */

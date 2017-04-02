@@ -21,8 +21,8 @@ public:
     ~Banish();
     
     //real work
-    void banish(minion &other);
-    void banish(ritual &other);
+    void using_ability(minion &other)override;
+    void using_ability(ritual &other)override;
 };
 
 #endif /* Banish_hpp */

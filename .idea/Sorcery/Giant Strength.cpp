@@ -9,13 +9,13 @@
 #include "Giant Strength.hpp"
 #include "minion.hpp"
 
-GiantStrength::GiantStrength(string name, int cost, string description, player *p1, player *p2,string type):enchantment{name, cost, description, p1, p2, type}{}
+GiantStrength::GiantStrength(string name, int cost, string description, player *p1, player *p2,string type, string a, string d):enchantment{name, cost, description, p1, p2, type,a,d}{}
 
 GiantStrength::~GiantStrength(){
     target = nullptr;
 }
 
-void GiantStrength::giantstrength(){
+void GiantStrength::using_ability(){
     target->get_strength();
     target->add_buff(*this);
 }

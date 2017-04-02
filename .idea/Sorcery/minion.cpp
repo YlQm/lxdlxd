@@ -10,7 +10,7 @@
 #include "player.hpp"
 #include "enchantment.hpp"
 
-minion::minion(string name, int cost, string description, player *p1, player *p2,string type, int action, int defence, int attack, int buffamount):card{name, cost, description, p1, p2, type}, bfposition{-1}, action{action}, defence(defence), attack(attack), buffamount{buffamount}{}
+minion::minion(string name, int cost, string description, player *p1, player *p2,string type, int action, int defence, int attack, int buffamount,int activated_ability_cost):card{name, cost, description, p1, p2, type}, bfposition{-1}, action{action}, defence(defence), attack(attack), buffamount{buffamount},activated_ability_cost{activated_ability_cost}{}
 
 minion::~minion(){}
 
@@ -31,9 +31,20 @@ void minion::changeattack(string how, int much){
     }
 }
 
+int minion::getattack(){
+    return attack;
+}
+
+int minion::getdefence(){
+    return defence;
+}
 
 void minion::being_destroy(){
     p1->destroy(*this);
+}
+
+int minion::getabilitycost(){
+    return activated_ability_cost;
 }
 
 void minion::changeaction(string how, int much){
@@ -91,6 +102,9 @@ void minion::being_hit(int otherattack){
     } else {
         cout<<"This attacked minion is not in the battlefield"<<endl;
     }
+}
+void minion::hit(player &other){
+    other.changehealth("minus", attack);
 }
 
 bool minion::isdead(){

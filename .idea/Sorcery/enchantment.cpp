@@ -9,7 +9,7 @@
 #include "enchantment.hpp"
 #include "minion.hpp"
 
-enchantment::enchantment(string name, int cost, string description,player *p1, player *p2, string type):card(name, cost, description, p1, p2,type), target{nullptr}{}
+enchantment::enchantment(string name, int cost, string description,player *p1, player *p2, string type, string a, string d):card(name, cost, description, p1, p2,type), target{nullptr}, attack_buff{a}, defence_buff{d}{}
 
 enchantment::~enchantment(){
     target = nullptr;
@@ -18,4 +18,16 @@ enchantment::~enchantment(){
 void enchantment::being_destroy(){
     target->destroy_top_enchantment();
 }
+string enchantment::getattack(){
+    return attack_buff;
+}
 
+string enchantment::getdefence(){
+    return defence_buff;
+}
+
+void enchantment::settarget(minion &other){
+    target = &other;
+}
+
+void enchantment::using_ability(){}

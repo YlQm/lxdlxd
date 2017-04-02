@@ -19,7 +19,7 @@ public:
     ~RaiseDead();
     
     //real work
-    void raisedead();
+    void using_ability()override;
 };
 
 #endif /* Raise_Dead_hpp */

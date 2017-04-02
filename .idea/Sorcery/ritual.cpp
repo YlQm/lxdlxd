@@ -37,3 +37,11 @@ void ritual::change_charge(string how, int much){
         being_destroy();
     }
 }
+
+int ritual::getcharge(){
+    return charge;
+}
+int ritual::getritualcost(){
+    return acti_cost;
+}
+

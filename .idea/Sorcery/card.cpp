@@ -36,3 +36,12 @@ int card::getcost(){
 string card::gettype(){
     return type;
 }
+
+
+player* card::getowner(){
+    return p1;
+}
+
+player* card::getenemy(){
+    return p2;
+}

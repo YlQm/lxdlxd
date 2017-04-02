@@ -22,8 +22,9 @@ class minion: public card{
     vector<enchantment*> buff;
     int buffamount;
     bool acability = true;
+    int activated_ability_cost;
 public:
-    minion(string name, int cost, string description, player *p1, player *p2, string type, int action, int defence, int attack, int buffamount);
+    minion(string name, int cost, string description, player *p1, player *p2, string type, int action, int defence, int attack, int buffamount,int activated_ability_cost);
     virtual ~minion();
     virtual void changedefence(string how, int much);
     virtual void changeattack(string how, int much);
@@ -38,6 +39,9 @@ public:
     virtual void back_to_hand();
     virtual void set_defence(int newdefence);
     virtual void set_attack(int newattack);
+    virtual int getattack();
+    virtual int getdefence();
+    virtual int getabilitycost();
     
     virtual const vector<enchantment*>& getbuff();
     virtual int get_buff_amount();

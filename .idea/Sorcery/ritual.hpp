@@ -24,6 +24,8 @@ public:
     virtual ~ritual();
     void being_destroy();
     void change_charge(string how, int much);
+    virtual int getcharge();
+    virtual int getritualcost();
 };
 
 #endif /* ritual_hpp */
