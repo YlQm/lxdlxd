@@ -42,7 +42,9 @@ void view::print_view(){
     cout << EXTERNAL_BORDER_CHAR_BOTTOM_RIGHT<<endl;
 }
 
-card_template_t print_card(card *c){
+
+
+card_template_t print_card(minion *m){
 	string type = c->gettype();
 	string cardname = c->getname();
 	int cardcost = c->getcost();
@@ -55,21 +57,39 @@ card_template_t print_card(card *c){
 	    int miniondefence = c->getdefence();
 	    string carddes = c->getdescription();
 		card_template_t newcard = display_minion_triggered_ability(cardname, cardcost, minionattack, miniondefence, carddes);
-	}else if (type == "activated_ability_minion"){
+	}else{
 		int minionattack = c->getattack();
 	    int miniondefence = c->getdefence();
 	    string carddes = c->getdescription();
 		int abilitycost = c->getablitycost();
 		card_template_t newcard = display_minion_activated_ability(cardname, cardcost, minionattack, miniondefence, abilitycost, carddes);
-	}else if (type == "ritual"){
-		string carddes = c->getdescription();
-		int cardcharge = c->getcharge();
-		int ritualcost = c->getritualcost();
-		card_template_t newcard = display_ritual(cardname, cardcost, ritualcost, carddes , cardcharge);
-	}else if (type == "spell"){
-		string carddes = c->getdescription();
-		card_template_t newcard = display_spell(cardname, cardcost, carddes);
-	}else if (type == "enchantment"){
+	}
+	return newcard;
+}
+
+card_template_t print_card(ritual *r){
+	string cardname = c->getname();
+	int cardcost = c->getcost();
+	string carddes = c->getdescription();
+	int cardcharge = c->getcharge();
+	int ritualcost = c->getritualcost();
+	card_template_t newcard = display_ritual(cardname, cardcost, ritualcost, carddes , cardcharge);
+	return newcard;
+}
+
+card_template_t print_card(spell *s){
+	string cardname = c->getname();
+	int cardcost = c->getcost();
+	string carddes = c->getdescription();
+	card_template_t newcard = display_spell(cardname, cardcost, carddes);
+	return newcard;
+}
+
+card_template_t print_card(enchantment *e){
+	string type = c->gettype();
+	string cardname = c->getname();
+	int cardcost = c->getcost();
+	if (type == "enchantment"){
 		string carddes = c->getdescription();
 		card_template_t newcard = display_enchantment(cardname, cardcost, carddes);
 	}else {
@@ -80,8 +100,6 @@ card_template_t print_card(card *c){
 	}
 	return newcard	
 }
-
-
 
 void view::update(){
 	int hand1 = model->player1.gethandamount();
