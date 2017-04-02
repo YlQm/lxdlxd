@@ -14,6 +14,14 @@ line::~line(){
 	card5.clear();
 }
 
+void clearline(line l){
+	l.card1.clear();
+	l.card2.clear();
+	l.card3.clear();
+	l.card4.clear();
+	l.card5.clear();
+}
+
 ostream &operator<<(ostream &out, const line &l){
 	for (int i = 0; i <= 10 ;i++){
 		out << EXTERNAL_BORDER_CHAR_UP_DOWN;

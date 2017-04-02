@@ -18,6 +18,7 @@ public:
 	~line();
 	friend ostream &operator<<(ostream &out, const line &l);
 	void changecard(card_template_t c, int i);
+	void clearline(line l);
 	void removecard(int i);
 };
 #endif

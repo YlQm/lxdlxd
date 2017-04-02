@@ -9,6 +9,7 @@
 using namespace std;
 view::view(){}
 
+
 view::~view(){
 	clearline(top);
 	clearline(player1_battlefield);
