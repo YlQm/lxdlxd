@@ -250,16 +250,18 @@ void view::update(){
     }
     
     if (mymodel.getritual1()){
-        top.changecard(print_card(mymodel->getplayer1ritual()),1);
+        top.changecard(print_card(mymodel->getritual1()),1);
     }
     if (mymodel.getritual2()){
-        bottom.changecard(print_card(mymodel->getplayer2ritual()),5);
+        bottom.changecard(print_card(mymodel->getritual2()),1);
     }
-    if (mymodel.getgrave1()){
-        top.changecard(print_card(mymodel->getplayer1grave()),1);
+    int i = mymodel.getgrave1().size();
+    if (mymodel.getgrave1()[i]){
+        top.changecard(print_card(mymodel->getgrave1()),5);
     }
-    if (mymodel.getgrave2()){
-        bottom.changecard(print_card(mymodel->getplayer2grave()),5);
+    int j = mymodel.getgrave2().size();
+    if (mymodel.getgrave2()[j]){
+        bottom.changecard(print_card(mymodel->getgrave2()),5);
     }
     
     updateplayer(mymodel->getplayer1(),1);
