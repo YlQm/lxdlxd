@@ -10,7 +10,7 @@
 #include "player.hpp"
 using namespace std;
 
-player::player(string name) : magic{3}, name{name}, health{20}, hand{},  battlefield{}, grave{},  r(nullptr), ritual_exist(false), turn{false}{}
+player::player(string name) : magic{3}, name{name}, health{20}, max_magic{3}, hand{},  battlefield{}, grave{},  r(nullptr), ritual_exist(false), turn{false}{}
 
 
 player::~player(){
@@ -42,6 +42,9 @@ void player::setname(string inputname){
     name = inputname;
 }
 
+void player::setdeck(vector<card*> newdeck){
+    deck = newdeck;
+}
 
 void player::changehealth(string how, int much){
     if (how == "plus"){
@@ -186,7 +189,7 @@ void player::destroy_hand_card(card &other){
 
 void player::aoe(string how, int much){
     for(int i = 0; i < battlefield.size(); i++){
-        battlefield.at(i)->changedefence(how, much);
+        battlefield.at(i)->change_defence(how, much);
     }
     cout<<"You've already dealed "<<much<<" damage to all minions on your battlefield"<<endl;
 }
@@ -205,8 +208,6 @@ void player::play(int i){
                 minion *m = dynamic_cast<minion*>(temp);
                 if(m){
                     summon(*m);
-                    hand.erase(hand.begin() + temp->gethandposition());
-                    temp->sethandposition(-1);
                     reorder_hand();
                 } else {
                     cout<<"casting error"<<endl;
@@ -227,7 +228,7 @@ void player::play(int i){
             else if(temp->gettype() == "non-target spell"){
                 spell *spl = dynamic_cast<spell*>(temp);
                 if(spl){
-                    spl->being_used();
+                    spl->using_ability();
                     hand.erase(hand.begin() + temp->gethandposition());
                     temp->sethandposition(-1);
                     reorder_hand();
@@ -257,7 +258,7 @@ void player::play(int i, string whichplayer, int j){
                             return;
                         } else {
                             en->settarget(*battlefield.at(j - 1));
-                            en->using_ability();
+                            en->using_enability();
                             battlefield.at(j - 1)->add_buff(*en);
                             destroy_hand_card(*en);
                             return;
@@ -268,7 +269,7 @@ void player::play(int i, string whichplayer, int j){
                             return;
                         } else {
                             en->settarget(*en->getenemy()->battlefield.at(j - 1));
-                            en->using_ability();
+                            en->using_enability();
                             en->getenemy()->battlefield.at(j - 1)->add_buff(*en);
                             destroy_hand_card(*en);
                             return;
@@ -323,19 +324,57 @@ void player::play(int i, string whichplayer, int j){
     }
 }
 
+//Remember, just for test mod
+void player::discard(int i){
+    if(i > hand.size()){
+        cout<<"You don't have that card"<<endl;
+        return;
+    } else {
+        card *temp = hand.at(i - 1);
+        hand.erase(hand.begin() + i - 1);
+        delete temp;
+    }
+}
 
 
+void player::attack(int i){
+    if(i > battlefield.size()){
+        cout<<"You don't have this minion"<<endl;
+    } else {
+        battlefield.at(i - 1)->hit(*battlefield.at(i - 1)->getenemy());
+    }
+}
 
 
+void player::attack(int i, int j){
+    if(i > hand.size()){
+        cout<<"You don't have that minion"<<endl;
+        return;
+    } else {
+        minion *temp = battlefield.at(i - 1);
+        if(j > temp->getenemy()->getbattlefield().size()){
+            cout<<"He doesn't have that minion"<<endl;
+            return;
+        } else {
+            temp->hit(*temp->getenemy()->getbattlefield().at(j - 1));
+        }
+    }
+}
 
 
+void player::reset_action(){
+    for(int i =0; i<battlefield.size();i++){
+        battlefield.at(i)->add_action();
+    }
+}
 
+void player::reset_magic(){
+    magic = max_magic;
+}
 
-
-
-
-
-
+void player::add_max_magic(){
+    ++max_magic;
+}
 
 
 

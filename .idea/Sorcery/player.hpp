@@ -32,6 +32,7 @@ class player{
     
     bool turn;
     int magic;
+    int max_magic;
     string name;
     int health;
 public:
@@ -50,10 +51,14 @@ public:
     void changehealth(string how, int much);
     void changemagic(string how, int much);
     void add_magic();
+    void setdeck(vector<card*> newdeck);
     //BASIC INFORMATION//
     ///////////////////////////////////////////
     
+    
     void draw();//draw ONE card from deck to hand if hand is not full
+    void attack(int i);//use ith minion to attack his face
+    void attack(int i, int j);//use ith minion to attack his jth minion
     void reorder_hand();//call when need to order cards in your hand
     void destroy_ritual();//remove exiting ritual from this game
     void summon(minion &other);//summon a minion from hand to battlefield
@@ -61,6 +66,10 @@ public:
     void play(int i);//play a card from hand without target
     void play(int i, string whichplayer, int j);//play a card from hand with target
     
+    void add_max_magic();//add one max_magic
+    void reset_action();//reset minion's action to 1 when your turn starts
+    void reset_magic();//reset player's magic
+    void discard(int i);//for test mod, remove a card from your hand: it will never appear in this game.
     void destroy_hand_card(card &other);//remove a card from your hand but not delete
     void destroy(minion &other);//move a minion which is on the battlefield to grave or card Banish
     void bring_back(minion &other);//call when use card Summon

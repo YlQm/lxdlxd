@@ -9,6 +9,7 @@
 #include "controller.hpp"
 #include <sstream>
 
+controller::controller(model *m, view *v):m(m), v(v){}
 
 
 controller::~controller(){
@@ -18,14 +19,14 @@ controller::~controller(){
 
 
 void controller::run(bool test){
-    player p1=m->getplayer1();
-    player p2=m->getplayer2();
+    player *p1=m->getplayer1();
+    player *p2=m->getplayer2();
     int turn=1; // 1:p1, 2:p2
     string cmd;
     while(1){
         v->print_view();
-        turn==1?p1.draw():p2.draw();
-        turn==1?p1.add_magic():p2.add_magic();
+        turn==1?p1->draw():p2->draw();
+        turn==1?p1->add_magic():p2->add_magic();
         bool flag=false;
         while(1){
             if(flag==false)
@@ -43,26 +44,28 @@ void controller::run(bool test){
                 cout<<"hand -- Describe all cards in your hand."<<endl;
                 cout<<"board -- Describe all cards on the board."<<endl;
             }
-            else if(cmd=="end")
-                turn==1?turn=2:turn=1;
+            else if(cmd=="end"){
+                turn==1?p1->add_max_magic():p2->add_max_magic();
+                turn==1?p1->reset_magic():p2->reset_magic();
+                turn==1?turn=2:turn=1;}
             else if(cmd=="quit"){
                 cout<<"No winner!"<<endl;
             }
             else if(test==true&&cmd=="draw")
-                turn==1?p1.draw():p2.draw();
+                turn==1?p1->draw():p2->draw();
             else if(test==true&&cmd=="discard"){
                 int i;
                 cin>>i;
-                turn==1?p1.discard(i):p2.discard(i);
+                turn==1?p1->discard(i):p2->discard(i);
             }
             else if(cmd=="attack"){
                 int i,j; string temp;
                 cin>>i; cin>>temp;
                 stringstream ss(temp);
                 if(ss>>j)
-                    turn==1?p1.attack(i, j):p2.attack(i, j);
+                    turn==1?p1->attack(i, j):p2->attack(i, j);
                 else{
-                    turn==1?p1.attack(i):p2.attack(i);
+                    turn==1?p1->attack(i):p2->attack(i);
                     flag=true;
                     cmd=temp;
                 }
@@ -76,16 +79,16 @@ void controller::run(bool test){
                     cin>>temp2;
                     stringstream ss(temp2);
                     if((ss>>t)&&p==1)
-                        turn==1?p1.play(i, "player1", t):p2.play(i, "player1", t);
+                        turn==1?p1->play(i, "player1", t):p2->play(i, "player1", t);
                     else if((ss>>t)&&p==2)
-                        turn==1?p1.play(i, "player2", t):p2.play(i, "player2", t);
+                        turn==1?p1->play(i, "player2", t):p2->play(i, "player2", t);
                     else if(p==1)
-                        turn==1?p1.play(i, "player1", -1):p2.play(i, "player1", -1);
+                        turn==1?p1->play(i, "player1", -1):p2->play(i, "player1", -1);
                     else if(p==2)
-                        turn==1?p1.play(i, "player2", -1):p2.play(i, "player2", -1);
+                        turn==1?p1->play(i, "player2", -1):p2->play(i, "player2", -1);
                 }
                 else{
-                    turn==1?p1.play(i):p2.play(i);
+                    turn==1?p1->play(i):p2->play(i);
                     flag=true;
                     cmd=temp1;
                 }
