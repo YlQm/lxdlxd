@@ -1,30 +1,18 @@
-//
-//  deck.hpp
-//  Sorcery
-//
-//  Created by 刘然 on 2017-03-27.
-//  Copyright © 2017 刘然. All rights reserved.
-//
-
-#ifndef deck_hpp
-#define deck_hpp
-
+#ifndef _DECK_HPP_
+#define _DECK_HPP_
 #include <string>
 #include <vector>
 using namespace std;
 
-class card;
-
 class deck
 {
-    vector<string> theDeck;
-    vector<card> realDeck;
-    int num;
+        vector<card*> theDeck;
+        int num;
 public:
-    deck();
-    ~deck();
-    void addtodeck(string newcard);
-    void initdeck();
+        deck();
+        ~deck();
+        void addtodeck(string newcard, player *player1, player *player2);
+        void shuffledeck();
 };
 
-#endif /* deck_hpp */
+#endif
