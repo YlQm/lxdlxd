@@ -15,13 +15,13 @@ Enrage::~Enrage(){
     target = nullptr;
 }
 
-void Enrage::using_ability(){
+void Enrage::using_enability(){
     target->get_enrage();
     target->add_buff(*this);
 }
 
 void Enrage::being_destroy(){
     target->changeaction("over", 2);
-    target->changedefence("over", 2);
+    target->change_defence("over", 2);
     target->destroy_top_enchantment();
 }

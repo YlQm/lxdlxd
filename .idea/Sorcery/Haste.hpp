@@ -17,7 +17,7 @@ class Haste:public enchantment{
 public:
     Haste(string name, int cost, string description, player *p1, player *p2,string type, string a, string d);
     ~Haste();
-    void using_ability() override;
+    void using_enability() override;
     void is_added();
 };
 

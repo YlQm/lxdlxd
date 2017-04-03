@@ -65,6 +65,12 @@ void player::changemagic(string how, int much){
     }
 }
 
+void player::reorder_battlefield(){
+    for(int i =0;i<battlefield.size();i++){
+        battlefield[i]->setbfposition(i);
+    }
+}
+
 void player::destroy(minion &other){
     int record = other.getbfposiotion();
     if(record != -1){
@@ -72,6 +78,7 @@ void player::destroy(minion &other){
         temp->setbfposition(-1);
         battlefield.erase(battlefield.begin() + record);
         grave.push_back(temp);
+        reorder_battlefield();
     } else {
         cout<<"Can't see the minion in your battlefield"<<endl;
     }

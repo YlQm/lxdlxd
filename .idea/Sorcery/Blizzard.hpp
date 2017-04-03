@@ -19,6 +19,8 @@ public:
     ~Blizzard();
     
     //real work
+    void using_ability(minion &other)override;
+    void using_ability(ritual &other)override;
     void using_ability()override;
 };
 

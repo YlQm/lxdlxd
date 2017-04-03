@@ -14,11 +14,11 @@
 #include "card.hpp"
 #include "minion.hpp"
 #include "spell.hpp"
-#include "enchantment.cpp"
+#include "enchantment.hpp"
 #include "ritual.hpp"
 using namespace std;
 
-view::view():mymodel{NULL},top{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_1_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
+view::view(model *newmodel):mymodel{newmodel},top{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_1_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
 player1_battlefield{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
 player2_battlefield{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
 bottom{line(CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY,PLAYER_2_TEMPLATE,CARD_TEMPLATE_EMPTY,CARD_TEMPLATE_EMPTY)},
@@ -124,8 +124,8 @@ card_template_t view::print_card( enchantment *e){
         return newcard;
     }else {
         string carddes = e->getdescription();
-        string enchantmentattack = e->getattack();
-        string enchantmentdefence = e->getdefence();
+        string enchantmentattack = e->get_attack();
+        string enchantmentdefence = e->get_defence();
         card_template_t newcard = display_enchantment_attack_defence(cardname, cardcost, carddes, enchantmentattack, enchantmentdefence);
         return newcard;
     }
@@ -279,7 +279,7 @@ void view::update(){
         bottom.changecard(print_card(mymodel->getgrave2()[j]),5);
     }
     
-    updateplayer(mymodel->getplayer1(),1);
-    updateplayer(mymodel->getplayer2(),2);
+    updateplayer(*mymodel->getplayer1(),1);
+    updateplayer(*mymodel->getplayer2(),2);
     print_view();
 }

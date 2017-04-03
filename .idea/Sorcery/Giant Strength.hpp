@@ -17,7 +17,7 @@ public:
     GiantStrength(string name, int cost, string description, player *p1, player *p2,string type, string a, string d);
     ~GiantStrength();
     void being_destroy() override;
-    void using_ability() override;
+    void using_enability() override;
 };
 
 #endif /* Giant_Strength_hpp */

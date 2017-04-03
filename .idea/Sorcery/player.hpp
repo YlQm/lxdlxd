@@ -75,6 +75,7 @@ public:
     void bring_back(minion &other);//call when use card Summon
     void raise_dead();//call when use card RaiseDead
     void change_ritual_charge(string how, int much);//call when use car Recharge
+    void reorder_battlefield();//reorder minions' beposition
     
     void aoe(string how, int much);//call when AOE(Blizzard) is used, deal same damage to all minions on the battle field
     

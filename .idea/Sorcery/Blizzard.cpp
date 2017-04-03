@@ -11,8 +11,13 @@
 
 Blizzard::Blizzard(string name, int cost, string description, player *p1, player *p2, string type):spell(name, cost, description,p1,p2,type){}
 
+Blizzard::~Blizzard(){}
+
 void Blizzard::using_ability(){
         p1->aoe("minus", 2);
         p2->aoe("minus", 2);
 }
 
+
+void Blizzard::using_ability(minion &other){}
+void Blizzard::using_ability(ritual &other){}

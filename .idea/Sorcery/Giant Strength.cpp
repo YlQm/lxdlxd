@@ -15,13 +15,13 @@ GiantStrength::~GiantStrength(){
     target = nullptr;
 }
 
-void GiantStrength::using_ability(){
+void GiantStrength::using_enability(){
     target->get_strength();
     target->add_buff(*this);
 }
 
 void GiantStrength::being_destroy(){
     target->changeaction("minus", 2);
-    target->changedefence("minus", 2);
+    target->change_defence("minus", 2);
     target->destroy_top_enchantment();
 }

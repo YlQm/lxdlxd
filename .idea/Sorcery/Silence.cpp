@@ -15,7 +15,7 @@ Silence::~Silence(){
     target = nullptr;
 }
 
-void Silence::using_ability(){
+void Silence::using_enability(){
     target->silence(false);
     target->add_buff(*this);
 }

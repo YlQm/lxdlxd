@@ -32,7 +32,7 @@ class view{
     line player1_hand;
     line player2_hand;
 public:
-    view();
+    view(model *newmodel);
     ~view();
     void print_hand( int i);
     void print_view();

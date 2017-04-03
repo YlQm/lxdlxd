@@ -17,7 +17,7 @@ class controller{
     model *m;
     view *v;
 public:
-    controller();
+    controller(model *m, view *v);
     ~controller();
     void run(bool test);
 };

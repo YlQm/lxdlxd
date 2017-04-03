@@ -15,13 +15,13 @@
 using namespace std;
 
 class model{
-    player player1;
-    player player2;
+    player *player1;
+    player *player2;
 public:
-    model(player player1, player player2);
+    model(player *player1, player *player2);
     ~model();
-    const player& getplayer1();
-    const player& getplayer2();
+    player* getplayer1();
+    player* getplayer2();
     const vector<card*> gethand1();
     const vector<card*> gethand2();
     const vector<minion*> getbattlefield1();

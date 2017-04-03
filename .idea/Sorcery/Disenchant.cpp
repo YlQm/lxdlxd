@@ -16,3 +16,6 @@ Disenchant::~Disenchant(){}
 void Disenchant::using_ability(minion &other){
         other.destroy_top_enchantment();
 }
+
+void Disenchant::using_ability(ritual &other){}
+void Disenchant::using_ability(){}

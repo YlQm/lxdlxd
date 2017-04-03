@@ -20,3 +20,5 @@ void Banish::using_ability(ritual &other){
         other.being_destroy();
 }
 
+void Banish::using_ability(){}
+

@@ -26,15 +26,15 @@ protected:
 public:
     
     card(string name, int cost, string description, player *p1, player *p2, string type);
-    virtual ~card() = 0;
-    virtual string getname();
-    virtual int getcost();
-    virtual int gethandposition();
-    virtual string gettype();
-    virtual void sethandposition(int newposition);
+    virtual ~card();
+    string getname();
+    int getcost();
+    int gethandposition();
+    string gettype();
+    void sethandposition(int newposition);
     string getdescription();
-    virtual player* getowner();
-    virtual player* getenemy();
+    player* getowner();
+    player* getenemy();
 };
 
 #endif /* card_hpp */

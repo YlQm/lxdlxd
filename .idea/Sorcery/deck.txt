@@ -1,0 +1,12 @@
+AirElemental
+EarthElemental
+Banish
+Unsummon
+Recharge
+Disenchant
+RaiseDead
+Blizzard
+Enrage
+GiantStrength
+Haste
+Silence

@@ -17,5 +17,7 @@ void RaiseDead::using_ability(){
     p1->raise_dead();
 }
 
+void RaiseDead::using_ability(minion &other){}
+void RaiseDead::using_ability(ritual &other){}
 
 

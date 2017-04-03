@@ -14,7 +14,7 @@ minion::minion(string name, int cost, string description, player *p1, player *p2
 
 minion::~minion(){}
 
-void minion::changeattack(string how, int much){
+void minion::change_attack(string how, int much){
     if (how == "plus"){
         attack += much;
     }
@@ -64,7 +64,7 @@ void minion::changeaction(string how, int much){
     }
 }
 
-void minion::changedefence(string how, int much){
+void minion::change_defence(string how, int much){
     if (how == "plus"){
         defence += much;
     }
@@ -89,7 +89,7 @@ void minion::hit(minion &other){
     if(action == 0){cout<<"This minion is lazy"<<endl; return;}
     if((bfposition != -1) && (other.getbfposiotion() != -1)){
         other.being_hit(attack);
-        changedefence("minus", other.attack);
+        change_defence("minus", other.attack);
         --action;
     } else {
         cout<<"Minion is not in the battlefield"<<endl;
@@ -98,18 +98,16 @@ void minion::hit(minion &other){
 
 void minion::being_hit(int otherattack){
     if(bfposition != -1){
-        changedefence("minus", otherattack);
+        change_defence("minus", otherattack);
     } else {
         cout<<"This attacked minion is not in the battlefield"<<endl;
     }
 }
+
 void minion::hit(player &other){
     other.changehealth("minus", attack);
 }
 
-bool minion::isdead(){
-    return defence <= 0;;
-}
 
 int minion::getbfposiotion(){
     return bfposition;
@@ -147,15 +145,15 @@ void minion::add_buff(enchantment &other){
 void minion::get_enrage(){
     if(p1->getmagic() < 2){cout<<"player1 doesn't have enough magic for Enrage"<<endl; return;}
     p1->changemagic("minus", 2);
-    changedefence("times", 2);
-    changeattack("times", 2);
+    change_defence("times", 2);
+    change_attack("times", 2);
 }
 
 void minion::get_strength(){
     if(p1->getmagic() < 1){cout<<"player1 doesn't have enough magic for GiantStrength"<<endl; return;}
     p1->changemagic("minus", 1);
-    changeattack("plus", 2);
-    changeattack("plus", 2);
+    change_attack("plus", 2);
+    change_attack("plus", 2);
 }
 
 void minion::destroy_top_enchantment(){

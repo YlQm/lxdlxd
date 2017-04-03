@@ -18,7 +18,7 @@ public:
     ~Enrage();
     void enrage();
     void being_destroy() override;
-    void using_ability() override;
+    void using_enability() override;
 };
 
 #endif /* Enrage_hpp */

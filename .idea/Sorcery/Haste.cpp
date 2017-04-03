@@ -15,7 +15,7 @@ Haste::~Haste(){
     target = nullptr;
 }
 
-void Haste::using_ability(){
+void Haste::using_enability(){
     target->add_action();
     if(added == false){
         target->add_buff(*this);

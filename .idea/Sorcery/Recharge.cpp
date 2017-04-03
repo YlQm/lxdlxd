@@ -17,3 +17,7 @@ Recharge::~Recharge(){}
 void Recharge::using_ability(){
     p1->change_ritual_charge("plus", 3);
 }
+
+void Recharge::using_ability(minion &other){}
+void Recharge::using_ability(ritual &other){}
+

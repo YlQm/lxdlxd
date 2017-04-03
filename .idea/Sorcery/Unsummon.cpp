@@ -18,3 +18,6 @@ void Unsummon::using_ability(minion &other){
         other.back_to_hand();
 }
 
+void Unsummon::using_ability(ritual &other){}
+
+void Unsummon::using_ability(){}
