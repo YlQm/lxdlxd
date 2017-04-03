@@ -18,8 +18,8 @@ controller::~controller(){
 
 
 void controller::run(bool test){
-    player p1=m->getplayer1();
-    player p2=m->getplayer2();
+    player p1=m->get_player(1);
+    player p2=m->get_player(2);
     int turn=1; // 1:p1, 2:p2
     string cmd;
     while(1){
