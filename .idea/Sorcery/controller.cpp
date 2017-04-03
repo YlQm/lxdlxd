@@ -18,8 +18,8 @@ controller::~controller(){
 
 
 void controller::run(bool test){
-    player p1=m->get_player(1);
-    player p2=m->get_player(2);
+    player p1=m->getplayer1();
+    player p2=m->getplayer2();
     int turn=1; // 1:p1, 2:p2
     string cmd;
     while(1){
@@ -102,8 +102,8 @@ void controller::run(bool test){
                 cin>>i;
                 turn==1?v->inspect(1,i):v->inspect(2,i);
             }
-            else if(cmd=="print_hand"){
-                turn==1?v->hand(1):v->inspect(2);
+            else if(cmd=="hand"){
+                turn==1?v->print_hand(1):v->print_hand(2);
             }
             else if(cmd=="board"){
                 v->print_view();
