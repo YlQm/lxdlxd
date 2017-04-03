@@ -19,7 +19,9 @@ public:
     ~RaiseDead();
     
     //real work
-    void raisedead();
+    void using_ability(minion &other)override;
+    void using_ability(ritual &other)override;
+    void using_ability()override;
 };
 
 #endif /* Raise_Dead_hpp */

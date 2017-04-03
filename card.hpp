@@ -27,11 +27,14 @@ public:
     
     card(string name, int cost, string description, player *p1, player *p2, string type);
     virtual ~card();
-    virtual string getname();
-    virtual int getcost();
-    virtual int gethandposition();
-    virtual void sethandposition(int newposition);
+    string getname();
+    int getcost();
+    int gethandposition();
+    string gettype();
+    void sethandposition(int newposition);
     string getdescription();
+    player* getowner();
+    player* getenemy();
 };
 
 #endif /* card_hpp */

@@ -11,16 +11,18 @@
 
 #include <iostream>
 #include "spell.hpp"
-#include "minion.hpp"
 using namespace std;
 
+class minion;
 class Unsummon: public spell{
 public:
     Unsummon(string name, int cost, string description, player *p1, player *p2, string type);
     ~Unsummon();
     
     //real work
-    void unsummon(minion &other);
+    void using_ability(minion &other)override;
+    void using_ability(ritual &other)override;
+    void using_ability()override;
 };
 
 #endif /* Unsummon_hpp */

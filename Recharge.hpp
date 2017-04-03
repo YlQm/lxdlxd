@@ -24,7 +24,9 @@ public:
     string getdescription();
     
     //real work
-    void recharge(ritual &other);
+    void using_ability(minion &other)override;
+    void using_ability(ritual &other)override;
+    void using_ability()override;
 };
 
 #endif /* Recharge_hpp */

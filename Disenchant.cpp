@@ -7,12 +7,15 @@
 //
 
 #include "Disenchant.hpp"
+#include "player.hpp"
 
-Disenchant::Disenchant() :name{"Disenchant"},cost{1},description{"Destroy the top enchantment on target minion"}{}
+Disenchant::Disenchant(string name, int cost, string description, player *p1, player *p2, string type):spell{name, cost, description, p1, p2, type}{}
 Disenchant::~Disenchant(){}
 
-string Disenchant::getdescription(){
-    return description;
+
+void Disenchant::using_ability(minion &other){
+        other.destroy_top_enchantment();
 }
 
-void Disenchant::disenchant(minion &other){}
+void Disenchant::using_ability(ritual &other){}
+void Disenchant::using_ability(){}

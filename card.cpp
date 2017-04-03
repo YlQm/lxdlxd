@@ -10,7 +10,6 @@
 #include "player.hpp"
 
 card::card(string name, int cost, string description, player *p1, player *p2, string type) : name{name}, cost{cost}, handposition{-1}, p1{p1}, p2{p2}, description(description), type(type){}
-
 card::~card(){}
 
 int card::gethandposition(){
@@ -31,4 +30,17 @@ string card::getname(){
 
 int card::getcost(){
     return cost;
+}
+
+string card::gettype(){
+    return type;
+}
+
+
+player* card::getowner(){
+    return p1;
+}
+
+player* card::getenemy(){
+    return p2;
 }

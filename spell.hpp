@@ -13,11 +13,16 @@
 #include "card.hpp"
 using namespace std;
 
+class minion;
+class ritual;
 class spell: public card{
 public:
     spell(string name, int cost, string description, player *p1, player *p2, string type);
     virtual ~spell();
-    virtual void being_destroy();
+    void being_destroy();
+    virtual void using_ability(minion &other)=0;
+    virtual void using_ability(ritual &other)=0;
+    virtual void using_ability()=0;
 };
 
 #endif /* spell_hpp */

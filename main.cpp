@@ -10,65 +10,62 @@
 #include <fstream>
 #include <string>
 #include "player.hpp"
+#include "deck.hpp"
+#include "controller.hpp"
+#include "model.hpp"
 
 int main(int argc, char *argv[]){
-    player player1, player2;
-    
+    deck deck1, deck2;
     string player1name, player2name;
     string initfilename;
-    
+    string deck1name = "default.deck";
+    string deck2name = "default.deck";
     string s;
-    int turn = 0;
-    int i = 0;
-    
-    s = argv[i+1];
-    
-    initfilename = argv[i+2];
+    bool test = 0;
+    bool graphics = 0;
+    for (int i = 0; i < argc - 1 ; i++){
+        s = argv[i+1];
+        if (s == "-init"){
+            initfilename = argv[i+2];
+            i++;
+        } else if (s == "-deck1"){
+            deck1name = argv[i + 2];
+            i++;
+        } else if (s == "-deck2"){
+            deck2name = argv[i + 2];
+            i++;
+        } else if (s == "-testing"){
+            test = 1;
+        } else {
+            graphics = 1;
+        }
+        
+    }
     
     ifstream initfile{initfilename};
+    ifstream deck1file{deck1name};
+    ifstream deck2file{deck2name};
     initfile >> player1name;
     initfile >> player2name;
-    player1.setname(player1name);
-    player2.setname(player2name);
+    player *player1= new player(player1name);
+    player *player2= new player(player2name);
+    model *m= new model(player1, player2);
+    view *v= new view(m);
+    controller *controll=new controller(m,v);
+    string newcard;
+    while (deck1file >> newcard){
+        deck1.addtodeck(newcard, player1, player2);
+    }
+    while (deck2file >> newcard){
+        deck2.addtodeck(newcard, player2, player1);
+    }
+    
+    player1->setdeck(deck1.getdeck());
+    player2->setdeck(deck2.getdeck());
+    
     try {
-        while (1){
-            if (turn == 0) {
-                cout << player1.getname()<<endl;
-                while(1){
-                    cin >> s;
-                    
-                    if (s == "quit") {
-                        turn = 2;
-                        break;
-                    }
-                    if (s == "minus") {
-                        player1.changehealth("minus", 20);  //this is for testing the case when player's health lower than 0
-                    }
-                    
-                    if (s == "end") break;
-                }
-            }
-            if (turn == 1) {
-                cout << player2.getname()<<endl;
-                while(1){
-                    cin >> s;
-                    
-                    if (s == "quit") {
-                        turn = 2;
-                        break;
-                    }
-                    if (s == "minus") {
-                        player1.changehealth("minus", 20);
-                    }
-                    
-                    if (s == "end") break;
-                }
-                
-            }
-            
-            if (turn == 2) break;
-            turn = 1 - turn;
-        }}
+        controll->run(test);
+    }
     catch (string name){
         cout << name << "lose" << endl;
     }
